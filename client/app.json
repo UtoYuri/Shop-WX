@@ -11,8 +11,7 @@
     "pages/goods/goods",
     "pages/order/list",
     "pages/user/user",
-    "pages/about/contact",
-    "pages/logs/logs"
+    "pages/about/contact"
   ],
   "window": {
     "backgroundTextStyle": "light",

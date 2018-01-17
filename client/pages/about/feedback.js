@@ -1,4 +1,6 @@
 // pages/about/feedback.js
+var common = require('../../vendor/functions/common.js');
+
 Page({
 
   /**
@@ -87,11 +89,28 @@ Page({
    * 提交反馈
    */
   postFeedback: function (e) {
-    // 清空页面
-    this.setData({
-      contact: '',
-      content: '',
-    });
+    var $that = this;
+    var contact = $that.data.contact;
+    var content = $that.data.content;
+    if (!contact || !content) {
+      wx.showToast({
+        title: '请完善反馈信息',
+        icon: 'loading'
+      });
+      return;
+    }
     // 提交反馈请求
+    common.postFeedback(contact, content, function(data){
+      // 清空页面
+      $that.setData({
+        contact: '',
+        content: '',
+      });
+    }, function(error){
+      wx.showToast({
+        title: '反馈失败',
+        icon: 'loading'
+      });
+    });
   }
 })

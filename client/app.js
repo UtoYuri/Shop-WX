@@ -4,15 +4,9 @@ var common = require('./vendor/functions/common.js');
 App({
   onLaunch: function () {
     var $that = this;
-    // 展示本地存储能力
-    var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
-
     // 登录
     wx.login({
       success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
         console.log("微信登录", res);
         var code = res.code;
         var encryptedData;
@@ -26,10 +20,10 @@ App({
               wx.getUserInfo({
                 success: res => {
                   console.log("获取用户信息", res);
-                  // 可以将 res 发送给后台解码出 unionId
                   common.setStorage('userInfo', res.userInfo, false);
                   encryptedData = res.encryptedData;
                   iv = res.iv;
+                  // 将 res 发送给后台解码出 unionId 以完成登录
                   common.getUniqueID(code, encryptedData, iv, function(data){
                     console.log("服务器登录", data);
                     var uniqueID = {

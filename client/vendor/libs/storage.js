@@ -31,10 +31,6 @@ var setStorage = function (key, value, isSync, callback) {
     var message = 'isSync参数应该是boolean类型，但实际传了 ' + (typeof isSync) + ' 类型';
     throw new StoreError(message);
   }
-  // 默认同步存储
-  if (typeof isSync !== 'undefined') {
-    isSync = true;
-  }
   if (typeof callback !== 'object') {
     callback = {}
   }
@@ -47,7 +43,10 @@ var setStorage = function (key, value, isSync, callback) {
     if (isSync) {
       wx.setStorageSync(key, value);
     }else{
-      wx.setStorage(key, value);
+      wx.setStorage({
+        key: key,
+        data: value
+      });
     }
     successCb && successCb();
   } catch (e) {
@@ -73,10 +72,6 @@ var getStorage = function (key, isSync, callback) {
     var message = 'isSync参数应该是boolean类型，但实际传了 ' + (typeof isSync) + ' 类型';
     throw new StoreError(message);
   }
-  // 默认同步存储
-  if (typeof isSync !== 'undefined') {
-    isSync = true;
-  }
   if (typeof callback !== 'object') {
     callback = {}
   }
@@ -90,7 +85,9 @@ var getStorage = function (key, isSync, callback) {
     if (isSync) {
       value = wx.getStorageSync(key);
     } else {
-      value = wx.getStorage(key);
+      value = wx.getStorage({
+        key: key,
+      });
     }
     successCb && successCb(value);
   } catch (e) {

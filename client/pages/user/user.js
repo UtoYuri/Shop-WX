@@ -68,12 +68,10 @@ Page({
   },
 
   /**
-   * 点击头像查看登录记录
+   * 点击头像
    */
   bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
+    
   },
 
   /**
@@ -84,7 +82,6 @@ Page({
     // 登录
     wx.login({
       success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
         console.log("微信登录", res);
         var code = res.code;
         var encryptedData;

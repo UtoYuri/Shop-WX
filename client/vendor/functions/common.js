@@ -23,6 +23,31 @@ var getShopMeta = function (successCb, failedCb) {
 }
 
 /**
+ * 用户反馈
+ */
+var postFeedback = function (contact, content, successCb, failedCb) {
+  var $that = this;
+  vendor.request({
+    url: config.api.postFeedback,
+    data: {
+      contact: contact,
+      content: content,
+    },
+    header: {
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'POST'
+  }, {
+      success: function (data) {
+        successCb && successCb(data);
+      },
+      failed: function (error) {
+        failedCb && failedCb(error);
+      },
+    });
+}
+
+/**
  * 通过code, encryptedData, iv解密用户uniqueid
  */
 var getUniqueID = function (code, encryptedData, iv, successCb, failedCb) {
@@ -255,6 +280,7 @@ module.exports = {
 
   // 网络请求
   getShopMeta: getShopMeta,
+  postFeedback: postFeedback,
   getUniqueID: getUniqueID,
   
   getGoodsListInCart: getGoodsListInCart,
