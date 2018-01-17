@@ -75,6 +75,7 @@ view{
 }
 .order .option text{
   padding: 10rpx 30rpx;
-  border: 1rpx solid #ddd;
+  border: 1rpx solid #FF8C00;
+  border-radius: 5rpx;
   display: inline-block;
 }

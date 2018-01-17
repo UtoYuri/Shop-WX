@@ -41,35 +41,60 @@ Page({
       ]
     ]
   },
-  //事件处理函数
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onLoad: function () {
+    // 展示用户信息
+    var userInfo = common.getStorage('userInfo', true);
+    if (userInfo) {
+      this.setData({
+        userInfo: userInfo,
+        hasUserInfo: true
+      });
+    }
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function (options) {
+    // 保证用户已登录
+    var uniqueID = common.getStorage('uniqueID', true);
+    if (!uniqueID) {
+      this.getUserInfo();
+    }
+  },
+
+  /**
+   * 点击头像查看登录记录
+   */
   bindViewTap: function() {
     wx.navigateTo({
       url: '../logs/logs'
     })
   },
-  onLoad: function () {
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    }
-  },
+
+  /**
+   * 获取用户信息
+   */
   getUserInfo: function (e) {
     var $that = this;
     // 登录
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
-        console.log(res);
+        console.log("微信登录", res);
         var code = res.code;
         var encryptedData;
         var iv;
+        // 获取用户信息
         wx.getUserInfo({
           success: res => {
-            // console.log(res);
+            console.log("获取用户信息", res);
             // 可以将 res 发送给后台解码出 unionId
-            app.globalData.userInfo = res.userInfo;
+            common.setStorage('userInfo', res.userInfo, false);
             encryptedData = res.encryptedData;
             iv = res.iv;
             $that.setData({
@@ -77,7 +102,7 @@ Page({
               hasUserInfo: true
             });
             common.getUniqueID(code, encryptedData, iv, function (data) {
-              // console.log(data);
+              console.log("服务器登录", data);
               var uniqueID = {
                 openid: data.openid,
                 unionid: data.unionid,
@@ -89,6 +114,20 @@ Page({
             // 所以此处加入 callback 以防止这种情况
             if (app.userInfoReadyCallback) {
               app.userInfoReadyCallback(res)
+            }
+          },
+          fail: res => {
+            // 用户主动点击时询问是否更改授权
+            if (e) {
+              wx.showModal({
+                title: '权限管理',
+                content: '您已拒绝授权，是否前往开启。',
+                success: res => {
+                  if (res.confirm) {
+                    wx.openSetting();
+                  }
+                }
+              });
             }
           }
         });

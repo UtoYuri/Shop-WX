@@ -1,6 +1,6 @@
 <!--pages/address/address.wxml 用户地址管理-->
 <!-- address-list -->
-<view class='address-list' wx:for="{{address}}" wx:for-index="i" data-address-index='{{i}}' bindtap='chooseAddress'>
+<view class='address-list' wx:for="{{address}}" wx:for-index="i" data-address-index='{{i}}' wx:key="" bindtap='chooseAddress'>
   <view class='address-title'>
     <text class='add-name'>收货人：{{item.name}}({{item.gender}})</text>
     <text class='add-phone'>手机号：{{item.phone}}</text>

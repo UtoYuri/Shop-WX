@@ -5,7 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-  
+    contact: "",
+    content: "",
   },
 
   /**
@@ -62,5 +63,35 @@ Page({
    */
   onShareAppMessage: function () {
   
+  },
+
+  /**
+   * 联系方式变化
+   */
+  contactChanged: function (e) {
+    this.setData({
+      contact: e.detail.value
+    });
+  },
+
+  /**
+   * 反馈内容变化
+   */
+  contentChanged: function (e) {
+    this.setData({
+      content: e.detail.value
+    });
+  },
+
+  /**
+   * 提交反馈
+   */
+  postFeedback: function (e) {
+    // 清空页面
+    this.setData({
+      contact: '',
+      content: '',
+    });
+    // 提交反馈请求
   }
 })

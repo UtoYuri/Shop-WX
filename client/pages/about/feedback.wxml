@@ -3,15 +3,15 @@
   <text class='group-name'>联系方式</text>
   <view class='info-row'>
     <text>手机:</text>
-    <input type="text" placeholder='请填写手机号码或邮箱'></input>
+    <input type="text" placeholder='请填写手机号码或邮箱' value='{{contact}}' bindinput='contactChanged'></input>
   </view>
 </view>
 <view class='group'>
   <text class='group-name'>反馈&留言</text>
   <view class='info-row multiple'>
-    <textarea placeholder='感谢您宝贵的意见或建议！'></textarea>
+    <textarea placeholder='感谢您宝贵的意见或建议！' maxlength='240' value='{{content}}' bindinput='contentChanged'></textarea>
   </view>
 </view>
 <view class='option'>
-  <button class='option-save'>发送</button>
+  <button class='option-save' bindtap='postFeedback'>发送</button>
 </view>

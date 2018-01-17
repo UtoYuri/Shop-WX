@@ -107,6 +107,16 @@ Page({
   onShareAppMessage: function () {
   
   },
+  
+  /**
+   * 用户点击打开商品详情
+   */
+  showGoods: function (e) {
+    var goods_id = e.currentTarget.dataset.goodsid;
+    wx.navigateTo({
+      url: '/pages/goods/goods?goods_id=' + goods_id
+    });
+  },
 
   /**
    * 购物车商品数量减一
@@ -190,10 +200,22 @@ Page({
    * 创建订单
    */
   createOrder: function (e) {
-    var $that = this;
-    wx.showToast({
-      title: '爷爷舍不得',
-      icon: 'loading'
+    var uniqueID = common.getStorage('uniqueID', true);
+    if (!uniqueID) {
+      wx.switchTab({
+        url: '/pages/user/user',
+      });
+      return;
+    }
+    if (this.data.total_goods === 0) {
+      wx.showToast({
+        title: '购物车空空如也',
+        icon: 'loading'
+      });
+      return;
+    }
+    wx.navigateTo({
+      url: '/pages/order/deal',
     });
   },
 })

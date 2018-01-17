@@ -5,7 +5,7 @@ page{
 
 .location{
   background-color: #fff;
-  padding: 40rpx 30rpx;
+  padding: 40rpx 10rpx 30rpx 30rpx;
 }
 .location:not(:last-child){
    border-bottom: 1rpx solid #ddd; 
@@ -35,7 +35,7 @@ page{
   height: 64rpx;
 }
 .order-group{
-  padding-bottom: 200rpx;
+  padding-bottom: 120rpx;
   background-color: #fff;
 }
 .deliver{
@@ -43,6 +43,17 @@ page{
 }
 .deliver .price{
   margin-left: 20rpx;
+}
+.remark{
+  padding: 20rpx 20rpx;
+}
+.remark textarea{
+  padding: 20rpx 0;
+  text-indent: 20rpx;
+  width: 100%;
+  height: 200rpx;
+  display: block;
+  border: 1rpx solid #ddd;
 }
 .order{
   padding: 20rpx 20rpx;

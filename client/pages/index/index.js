@@ -29,6 +29,7 @@ Page({
       var banner = $that.data.banner;
       var name = "超市";
       var contact = "13888888888";
+      var description = "超市百货，应有尽有。";
       // 最新提示信息
       if (data.latest_notice.length > 0){
         hasNotice = true;
@@ -39,7 +40,7 @@ Page({
           timingFunction: 'linear',
         });
         // 循环执行
-        var deg = [1, 1.1];
+        var deg = [1.1, 1];
         var i = 0;
         setInterval(function () {
           animation.scale(deg[i]).step().scale(deg[(i + 1) % deg.length]).step();
@@ -59,7 +60,10 @@ Page({
         }
         if (data.shop_meta[i].key === 'contact') {
           contact = data.shop_meta[i].value;
-        }
+        } 
+        if (data.shop_meta[i].key === 'description') {
+          description = data.shop_meta[i].value;
+        } 
       }
       $that.setData({
         hasNotice: hasNotice,
@@ -70,6 +74,7 @@ Page({
         name: name,
         contact: contact,
         banner: banner,
+        description: description,
       }, false);
     }, function (error) {
       console.log("商店信息", error);

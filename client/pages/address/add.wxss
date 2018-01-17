@@ -42,6 +42,7 @@ view{
 }
 .info-row radio{
   margin-right: 40rpx;
+  transform:scale(.9);
 }
 .info-row textarea{
   width: 100%;
@@ -52,17 +53,19 @@ view{
   text-indent: 20rpx;
 }
 .option{
-  margin-top: 20rpx;
+  margin-top: 40rpx;
 }
 .option button{
   margin: 20rpx 0;
 }
 .option-save{
   color: #fff;
-  background-color: green;
+  border-radius: 2rpx;
+  background-color: #FF8C00;
 }
 .option-del{
   color: #fff;
+  border-radius: 2rpx;
   background-color: red;
 }
 .city-selector{

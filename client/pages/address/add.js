@@ -198,7 +198,10 @@ Page({
     var gender = this.data.gender;
     var phone = this.data.phone;
     var address = this.data.address;
-    if (name.length === 0 || phone.length != 11 || typeof (address.name) == 'undefined'){
+    if (name.length === 0 
+      || phone.length != 11 
+      || !address.name
+      || !address.detail){
       wx.showToast({
         title: '请完善信息',
         icon: 'loading'

@@ -3,8 +3,9 @@
   <view class='order'>
     <text class='shop'>{{shopName}}</text>
     <view class='goods-group'>
+      <text class='tip small-size' wx:if="{{total_goods === 0}}">购物车空空如也</text>
       <view class='goods' wx:for="{{cart}}" wx:key="goods_id">
-        <view class='left'>
+        <view class='left' data-goodsid='{{item.goods_id}}' bindtap='showGoods'>
           <image mode='aspectFit' src='{{item.cover}}'></image>
         </view>
         <view class='right'>
@@ -25,10 +26,10 @@
 <view class='option'>
   <view class='total'>
     <text class='total-count small-size'>共<text class='orange'> {{total_goods}} </text>件商品</text>
-    <text class='total-price small-size'>共<text class='orange'>￥{{total_price}}</text></text>
      <text class='total-price small-size'>运费<text class='orange'>￥{{total_freight}}</text></text> 
+    <text class='total-price small-size'>共<text class='orange'>￥{{total_price + total_freight}}</text></text>
   </view>
   <view class='deal' bindtap='createOrder'>
-    <text>去结算</text>
+    <text>确认下单</text>
   </view>
 </view>

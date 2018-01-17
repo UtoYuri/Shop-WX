@@ -114,6 +114,9 @@ Page({
       total_cart_num: this.data.total_cart_num + 1
     });
     common.setStorage('cart', cart, true);
+    wx.showToast({
+      title: '添加成功',
+    });
   },
 
   /**

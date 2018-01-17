@@ -1,4 +1,6 @@
 {
+  "backgroundTextStyle": "dark",
   "navigationBarTitleText": "购物车",
+  "navigationBarTextStyle": "white",
   "navigationBarBackgroundColor": "#FF8C00"
 }

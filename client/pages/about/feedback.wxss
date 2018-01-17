@@ -46,12 +46,12 @@ view{
   text-indent: 20rpx;
 }
 .option{
-  margin-top: 20rpx;
+  margin-top: 40rpx;
 }
 .option button{
   margin: 20rpx 0;
 }
 .option-save{
   color: #fff;
-  background-color: green;
+  background-color: #FF8C00;
 }

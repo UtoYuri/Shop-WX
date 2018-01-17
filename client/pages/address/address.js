@@ -18,14 +18,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if (options.point) {
+    // 地址选择模式
+    // 设置起点/终点、来源页面
+    if (options.point && options.from) {
       this.setData({
+        fromUrl: options.from,
         point: options.point
-      });
-    }
-    if (options.from) {
-      this.setData({
-        fromUrl: options.from
       });
     }
   },
@@ -130,15 +128,21 @@ Page({
    * 用户选择地址
    */
   chooseAddress: function(e){
+    // 非地址选择模式忽略
     if(!this.data.point){
       return;
     }
     var index = e.currentTarget.dataset.addressIndex;
-    if (this.data.point === 'departure')
+    if (this.data.point === 'departure') {
+      // 起点设置
       app.globalData.departure = this.data.address[index];
-    else if (this.data.point === 'destination')
+    }
+    else if (this.data.point === 'destination') {
+      // 终点设置
       app.globalData.destination = this.data.address[index];
+    }
 
+    // 返回来源页面
     var url = this.data.fromUrl;
     if (url) {
       wx.navigateBack({

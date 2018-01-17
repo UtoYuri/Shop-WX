@@ -1,61 +1,44 @@
 <!--pages/order/deal.wxml-->
-<view class='location'>
-  <view class='info'>
-    <text class='info-address'>尊园香格里拉大街附近1108号楼001</text>
-    <text class='info-consumer'>孙悟空（先生） 13888888888</text>
+<view class='location' bindtap='chooseLocation'>
+  <view class='info' wx:if="{{destination}}">
+    <text class='info-address'>{{destination.address.name}} {{destination.address.detail}}</text>
+    <text class='info-consumer'>{{destination.name}}（{{destination.gender}}） {{destination.phone}}</text>
+  </view>
+  <view class='info' wx:if="{{!destination}}">
+    <text>选择收货地址</text>
   </view>
   <view class='modify'>
-    <image src='https://avatars0.githubusercontent.com/u/13847354?s=40&v=4'></image>
+    <image src='/source/arrow_r.png'></image>
   </view>
 </view>
 <view class='order-group'>
   <view class='order'>
-    <text class='shop'>SanDisk闪迪官方旗舰店</text>
+    <text class='shop'>{{shopName}}</text>
     <view class='goods-group'>
-      <view class='goods'>
-        <image mode='aspectFit' src='/source/icon.png'></image>
-        <text>闪迪SanDisk 酷游 16GB USB3.0 U盘</text>
+      <view class='goods' wx:for="{{cart}}" wx:key="goods_id">
+        <image mode='aspectFit' src='{{item.cover}}'></image>
+        <text>{{item.name}}</text>
         <view class='batch-group'>
-          <view class='price orange'>￥49.90</view>
-          <view class='num'>×3</view>
-        </view>
-      </view>
-      <view class='goods'>
-        <image mode='aspectFit' src='/source/icon.png'></image>
-        <text>闪迪SanDisk 酷游 16GB USB3.0 U盘</text>
-        <view class='batch-group'>
-          <view class='price orange'>￥49.90</view>
-          <view class='num'>×3</view>
-        </view>
-      </view>
-      <view class='goods'>
-        <image mode='aspectFit' src='/source/icon.png'></image>
-        <text>闪迪SanDisk 酷游 16GB USB3.0 U盘</text>
-        <view class='batch-group'>
-          <view class='price orange'>￥49.90</view>
-          <view class='num'>×3</view>
-        </view>
-      </view>
-      <view class='goods'>
-        <image mode='aspectFit' src='/source/icon.png'></image>
-        <text>闪迪SanDisk 酷游 16GB USB3.0 U盘</text>
-        <view class='batch-group'>
-          <view class='price orange'>￥49.90</view>
-          <view class='num'>×3</view>
+          <view class='price orange'>￥{{item.price}}</view>
+          <view class='num'>×{{item.cart_num}}</view>
         </view>
       </view>
     </view>
   </view>
+  <view class='remark'>
+    <text>备注：</text>
+    <textarea placeholder='订单备注' maxlength='240'></textarea>
+  </view>
   <view class='deliver'>
-    <text>快递费:<text class='price orange'>包邮</text></text>
+    <text>快递费:<text class='price orange'>￥{{total_freight}}</text></text>
   </view>
 </view>
 <view class='option'>
   <view class='total'>
-    <text class='total-count'>共<text class='orange'>1</text>件商品</text>
-    <text class='total-price'>共<text class='orange'>￥49.90</text></text>
+    <text class='total-count'>共<text class='orange'> {{total_goods}} </text>件商品</text>
+    <text class='total-price'>共<text class='orange'>￥{{total_price + total_freight}}</text></text>
   </view>
-  <view class='deal'>
-    <text>付款</text>
+  <view class='deal' bindtap='pay'>
+    <text>现在付款</text>
   </view>
 </view>
