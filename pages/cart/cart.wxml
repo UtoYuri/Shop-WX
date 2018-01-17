@@ -1,0 +1,34 @@
+<!--pages/cart/cart.wxml-->
+<view class='order-group'>
+  <view class='order'>
+    <text class='shop'>{{shopName}}</text>
+    <view class='goods-group'>
+      <view class='goods' wx:for="{{cart}}" wx:key="goods_id">
+        <view class='left'>
+          <image mode='aspectFit' src='{{item.cover}}'></image>
+        </view>
+        <view class='right'>
+          <text class='goods-name'>{{item.name}}</text>
+          <view class='batch-group'>
+            <view class='price orange'>￥{{item.price}}</view>
+            <view class='batch'>
+              <label data-goodsid='{{item.goods_id}}' bindtap='reduceGoodsNum'>-</label>
+              <text>{{item.cart_num}}</text>
+              <label data-goodsid='{{item.goods_id}}' bindtap='addGoodsNum'>+</label>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<view class='option'>
+  <view class='total'>
+    <text class='total-count small-size'>共<text class='orange'> {{total_goods}} </text>件商品</text>
+    <text class='total-price small-size'>共<text class='orange'>￥{{total_price}}</text></text>
+     <text class='total-price small-size'>运费<text class='orange'>￥{{total_freight}}</text></text> 
+  </view>
+  <view class='deal' bindtap='createOrder'>
+    <text>去结算</text>
+  </view>
+</view>

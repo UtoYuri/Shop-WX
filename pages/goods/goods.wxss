@@ -1,0 +1,99 @@
+/* pages/goods/goods.wxss */
+page{
+  background-color: #f0f0f0;
+}
+view{
+  /* border: 1px solid red; */
+}
+
+.banner{
+  background-color: #fff;
+  text-align: center;
+  height: 500rpx;
+}
+.group{
+  margin-top: 20rpx;
+  padding: 20rpx 0;
+  background-color: #fff;
+}
+.group view{
+  margin: 5rpx 0;
+  padding: 0 20rpx;
+}
+.goods-info{
+
+}
+.goods-name{
+  width:100%;
+  word-break:break-all;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+.goods-price{
+  display: block;
+  margin: 10rpx 0;
+}
+.deliver{
+  font-size: 22rpx;
+}
+.deliver text:first-child{
+  float: left;
+}
+.deliver text:last-child{
+  float: right;
+}
+
+.title{
+  text-align: center;
+  margin-top: 30rpx;
+  font-size: 26rpx;
+}
+.goods-desc{
+  display: block;
+  padding: 20rpx;
+}
+
+.option{
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: #fff;
+}
+.option view{
+  display: inline-block;
+  vertical-align: middle;
+}
+.option .menu{
+  width: 60%;
+}
+.option .deal{
+  padding: 30rpx 0;
+  width: 40%;
+  background-color: #FF8C00;
+  text-align: center;
+}
+.option .deal text{
+  color: #fff;
+  text-align: center;
+}
+.menu-link{
+  margin: 0 15rpx;
+  padding: 5rpx 20rpx;
+  width: 200rpx;
+  text-align: center;
+}
+.menu-link text{
+  font-size: 24rpx;
+}
+.menu-link .cart{
+  display: block;
+}
+.menu-link image{
+  height: 64rpx;
+  width: 64rpx;
+  display: block;
+  margin: 0 auto;
+}

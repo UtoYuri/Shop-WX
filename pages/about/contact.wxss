@@ -1,0 +1,9 @@
+/* pages/about/contact.wxss */
+.qr image{
+  width: 100%;
+  margin-top: 40rpx;
+}
+.tip{
+  text-align: center;
+  margin-top: 40rpx;
+}

@@ -1,0 +1,107 @@
+/* pages/index/index.wxss */
+view{
+   /* border: 1px solid red;  */
+}
+page{
+  background-color: #f0f0f0;
+}
+.banner,
+.group{
+  background-color: #fff;
+}
+.banner{
+  width: 100%;
+  height: 300rpx;
+  text-align: center;
+}
+.group{
+  margin-top: 20rpx;
+  padding: 20rpx 0;
+}
+.notice{
+  /* background-color: #ddd; */
+}
+.notice text,
+.notice image{
+  display: inline-block;
+  vertical-align: middle;
+}
+.notice image{
+  height: 32rpx;
+  width: 32rpx;
+  margin: 0 20rpx 0 40rpx;
+}
+.notice text{
+  max-width: 80%;
+  font-size: 32rpx;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+}
+.menus{
+  text-align: center;
+}
+.menu{
+  margin: 0 15rpx;
+  padding: 5rpx 20rpx;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+}
+.menu text{
+  display: block;
+  font-size: 28rpx;
+}
+.menu image{
+  height: 128rpx;
+  width: 128rpx;
+  display: block;
+  margin: 0 auto;
+}
+
+.goods-group{
+  margin-top: 20rpx;
+  background-color: #f0f0f0;
+  text-align: center;
+}
+.goods-group .title{
+  margin-bottom: 10rpx;
+  font-size: 26rpx;
+}
+.goods{
+  display: inline-block;
+  padding: 30rpx 0;
+  vertical-align: top;
+  width: 49.5%;
+  background-color: #fff;
+  margin-bottom: 10rpx;
+}
+.goods:nth-child(odd){
+  margin-left: .5%;
+}
+.goods:nth-child(even){
+  margin-right: .5%;
+}
+.goods image{
+  width: 100%;
+  height: 300rpx;
+}
+.goods .deliver{
+  font-size: 24rpx;
+}
+.goods .deliver text:first-child{
+  float: left;
+  margin-left: 10rpx;
+}
+.goods .deliver text:last-child{
+  float: right;
+  margin-right: 10rpx;
+}
+.goods-name{
+  width:100%;
+  word-break:break-all;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}

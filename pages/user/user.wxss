@@ -1,0 +1,52 @@
+/**user.wxss**/
+view{
+  /* border: 1rpx solid red; */
+}
+page{
+  background-color: #f0f0f0;
+}
+.top{
+  background-color: #FF8C00;
+}
+.userinfo {
+  padding: 20rpx;
+  margin: 40rpx;
+  text-align: center;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 5rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #fff;
+}
+
+.optiongroup{
+  background-color: #fff;
+  width: 100%;
+  margin-top: 20rpx;
+  /* border-top: 1rpx solid #ccc; */
+  /* border-bottom: 1rpx solid #ccc; */
+}
+.option{
+  padding: 25rpx 0;
+  width: 95%;
+  margin: 0 auto;
+}
+.option:not(:last-child){
+  border-bottom: 1rpx solid #ddd;
+}
+.option image{
+  height: 40rpx;
+  width: 40rpx;
+  margin-left: 20rpx;
+  vertical-align: middle;
+}
+.option text{
+  margin-left: 30rpx;
+  vertical-align: middle;
+}

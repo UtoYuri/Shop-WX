@@ -1,0 +1,19 @@
+/* pages/about/about.wxss */
+page{
+  background-color: #f0f0f0;
+}
+
+.banner{
+  background-color: #fff;
+  text-align: center;
+  height: 500rpx;
+}
+.group{
+  background-color: #fff;
+  margin-top: 20rpx;
+  padding: 20rpx 0;
+}
+.group text{
+  display: block;
+  padding: 5rpx 20rpx;
+}

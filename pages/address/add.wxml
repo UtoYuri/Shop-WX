@@ -1,0 +1,44 @@
+<!--pages/address/add.wxml-->
+<view class='group'>
+  <text class='group-name'>联系人</text>
+  <view class='info-row'>
+    <text>姓名:</text>
+    <input type="text" placeholder='请填写收货人姓名' value='{{name}}' bindinput='nameChanged'></input>
+  </view>
+  <view class='info-row'>
+    <radio-group bindchange="genderChanged">
+      <radio checked='{{isMale}}' value='先生'>先生</radio>
+      <radio checked='{{!isMale}}' value='女士'>女士</radio>
+    </radio-group>
+  </view>
+  <view class='info-row'>
+    <text>电话:</text>
+    <input type="number" placeholder='请填写收货手机号码' value='{{phone}}' bindblur='phoneChanged'></input>
+  </view>
+</view>
+<view class='group'>
+  <text class='group-name'>收货地址</text>
+  <view class='info-row'>
+    <text>地区:</text>
+     <input disabled='disabled' value='{{address.name}}' bindtap='openPicker' placeholder='点击选择'></input> 
+  </view>
+  <view class='info-row multiple'>
+    <text>详细地址:</text>
+    <textarea placeholder='请补充详细地址' value='{{address.detail}}' bindinput='addressChanged'></textarea>
+  </view>
+</view>
+<view class='option'>
+  <button class='option-save' bindtouchend='saveAddress'>保存</button>
+  <button class='option-del' bindtouchend='delAddress'>删除</button>
+</view>
+<view class='city-selector' wx-if="{{isPicking}}">
+  <button class='selector-option' bindtap='closePicker'>确定</button>
+  <picker-view value="{{value}}" bindchange="pickerChanged">
+    <picker-view-column>
+      <view wx:for="{{provinces}}">{{item.name}}</view>
+    </picker-view-column>
+    <picker-view-column>
+      <view wx:for="{{citys}}">{{item.name}}</view>
+    </picker-view-column>
+  </picker-view> 
+</view>

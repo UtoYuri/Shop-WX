@@ -1,0 +1,47 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/cart/cart",
+    "pages/order/deliver",
+    "pages/address/address",
+    "pages/address/add",
+    "pages/about/about",
+    "pages/about/feedback",
+    "pages/goods/goods",
+    "pages/order/deal",
+    "pages/order/list",
+    "pages/user/user",
+    "pages/about/contact",
+    "pages/logs/logs"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "选购中心",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#555",
+    "selectedColor": "#FF8C00",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "商城",
+        "iconPath": "source/home.png",
+        "selectedIconPath": "source/home_cover.png"
+      },
+      {
+        "pagePath": "pages/cart/cart",
+        "text": "购物车",
+        "iconPath": "source/cart.png",
+        "selectedIconPath": "source/cart_cover.png"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "text": "我的",
+        "iconPath": "source/my.png",
+        "selectedIconPath": "source/my_cover.png"
+      }
+    ]
+  }
+}

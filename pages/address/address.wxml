@@ -1,0 +1,22 @@
+<!--pages/address/address.wxml 用户地址管理-->
+<!-- address-list -->
+<view class='address-list' wx:for="{{address}}" wx:for-index="i" data-address-index='{{i}}' bindtap='chooseAddress'>
+  <view class='address-title'>
+    <text class='add-name'>收货人：{{item.name}}({{item.gender}})</text>
+    <text class='add-phone'>手机号：{{item.phone}}</text>
+  </view>
+  <view class='add-detail'>{{item.address.name}} {{item.address.detail}}</view>
+  <view class='add-default'>
+    <view class='add-left-cont  default-color'>    </view>
+    <view class='add-right-cont'>
+      <text catchtap="editAddress" data-address-index='{{i}}'>编辑</text>
+      <text>丨</text>
+      <text catchtap='delAddress' data-address-index='{{i}}'>删除</text>
+    </view>
+  </view>
+</view>
+
+<!-- bottom-button -->
+<navigator url='/pages/address/add' hidden='{{newAddHide}}'>
+  <view class='add-address'>添加新地址</view>
+</navigator>

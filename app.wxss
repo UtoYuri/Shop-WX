@@ -1,0 +1,40 @@
+/**app.wxss**/
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+} 
+.orange{
+  color: #FF8C00;
+}
+.red{
+  color: #F00;
+}
+.gray{
+  color: #555;
+}
+.align-left{
+  text-align: left;
+  display: block;
+}
+.align-center{
+  text-align: center;
+  display: block;
+}
+.align-right{
+  text-align: right;
+  display: block;
+}
+.small-size{
+  font-size: 24rpx;
+}
+.filler{
+  display: block;
+  height: 200rpx;
+}
+.clear{
+  clear: both;
+}

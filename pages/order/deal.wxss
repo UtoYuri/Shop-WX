@@ -1,0 +1,118 @@
+/* pages/order/deal.wxss */
+page{
+  background-color: #f0f0f0;
+}
+
+.location{
+  background-color: #fff;
+  padding: 40rpx 30rpx;
+}
+.location:not(:last-child){
+   border-bottom: 1rpx solid #ddd; 
+}
+.info{
+  width: 83%;
+  display: inline-block;
+  vertical-align: middle;
+}
+.info-address{
+  display: block;
+}
+.info-consumer{
+  margin-top: 5rpx;
+  color: #555;
+  font-size: 30rpx;
+  display: block;
+}
+.modify{
+  width: 15%;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: right;
+}
+.modify image{
+  width: 64rpx;
+  height: 64rpx;
+}
+.order-group{
+  padding-bottom: 200rpx;
+  background-color: #fff;
+}
+.deliver{
+  padding: 20rpx 20rpx;
+}
+.deliver .price{
+  margin-left: 20rpx;
+}
+.order{
+  padding: 20rpx 20rpx;
+  margin-top: 20rpx;
+}
+.order:not(:last-child){
+  border-bottom: 2rpx solid #f0f0f0;
+}
+.order .shop{
+  display: block;
+}
+.order .goods-group{
+  background-color: #f0f0f0;
+  margin: 20rpx 0;
+  padding: 20rpx 0;
+}
+.goods-group .goods{
+  padding: 10rpx 20rpx;
+}
+.goods-group .goods:not(:last-child){
+  border-bottom: 1rpx solid #fff;
+}
+.goods-group .goods image{
+  width: 128rpx;
+  height: 128rpx;
+  display: inline-block;
+  vertical-align: middle;
+}
+.goods-group .goods text{
+  width: 75%;
+  margin-left: 30rpx;
+  display: inline-block;
+  vertical-align: middle;
+}
+.batch-group{
+  text-align: right;
+}
+.batch-group view{
+  margin: 0 20rpx;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.option{
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: #fff;
+}
+.option view{
+  padding: 30rpx 0;
+  display: inline-block;
+  vertical-align: middle;
+}
+.option .total{
+  width: 60%;
+}
+.option .deal{
+  width: 40%;
+  background-color: #FF8C00;
+  text-align: center;
+}
+.option .deal text{
+  color: #fff;
+  text-align: center;
+}
+.total-count{
+  margin-left: 30rpx;
+}
+.total-price{
+  margin-left: 15rpx;
+}

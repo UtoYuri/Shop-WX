@@ -1,0 +1,39 @@
+<!--pages/index/index.wxml-->
+<image mode="aspectFill" src="{{banner}}" class="slide-image" class='banner'/>
+<view class='notice' animation="{{noticeAnimation}}" wx:if="{{hasNotice}}">
+  <image mode='aspectFit' src='/source/notice_cover.png'></image>
+  <text>{{notice}}</text>
+</view>
+<view class='group'>
+  <view class='menus'>
+    <view class='menu' data-direct="/pages/about/about?refer=index" bindtap='showPage'>
+      <image mode='aspectFit' src='/source/menu1.png'></image>
+      <text>关于我们</text>
+    </view>
+    <view class='menu' data-direct="/pages/about/contact?refer=index" bindtap='showPage'>
+      <image mode='aspectFit' src='/source/menu2.png'></image>
+      <text>进货批发</text>
+    </view>
+    <view class='menu' data-direct="/pages/about/contact?refer=index" bindtap='showPage'>
+      <image mode='aspectFit' src='/source/menu3.png'></image>
+      <text>私人订制</text>
+    </view>
+  </view>
+</view>
+<view class='goods-group'>
+  <view class='title'>
+    <text>—— </text>
+    <text>选购中心</text>
+    <text> ——</text>
+  </view>
+  <view class='goods' wx:for="{{goods}}" data-goodsid="{{item.goods_id}}" bindtap='showGoods' wx:key="goods_id">
+    <image mode='aspectFit' src='{{item.cover}}'></image>
+    <text class='goods-name'>{{item.name}}</text>
+    <text class='goods-price orange'>￥{{item.price}}</text>
+    <view class='deliver'>
+      <text>邮费: <text class='price red'>{{item.delivery_type.length == 0 ? item.freight : item.delivery_type}}</text></text>
+      <text class='gray'>999+已售</text>
+    </view>
+  </view>
+</view>
+

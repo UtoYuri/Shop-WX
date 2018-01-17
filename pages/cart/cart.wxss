@@ -1,0 +1,119 @@
+/* pages/cart/cart.wxss *//* pages/order/list.wxss */
+page{
+  background-color: #f0f0f0;
+}
+
+view{
+  /* border: 1rpx solid red; */
+}
+.order-group{
+  padding-bottom: 200rpx;
+}
+.order{
+  padding: 20rpx 20rpx;
+  margin-top: 20rpx;
+  background-color: #fff;
+}
+.order:not(:last-child){
+  border-bottom: 2rpx solid #f0f0f0;
+}
+.order .shop{
+  display: block;
+}
+.order .goods-group{
+  background-color: #f0f0f0;
+  margin: 20rpx 0;
+  padding: 20rpx 0;
+}
+.goods-group .goods{
+  padding: 10rpx 20rpx;
+}
+.goods-group .goods:not(:last-child){
+  border-bottom: 1rpx solid #fff;
+}
+.goods .left,
+.goods .right{
+  display: inline-block;
+  vertical-align: middle;
+}
+.goods .left{
+  width: 25%;
+}
+.goods .right{
+  width: 75%;
+}
+.goods image{
+  width: 160rpx;
+  height: 160rpx;
+  display: inline-block;
+  vertical-align: middle;
+}
+.goods-group .goods .goods-name{
+  margin: 10rpx 0 20rpx 20rpx;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.batch-group{
+  text-align: right;
+}
+.batch-group view{
+  margin: 0 20rpx;
+  display: inline-block;
+  vertical-align: middle;
+}
+.batch-group .batch{
+  background-color: #fff;
+}
+.batch-del{
+  margin-right: 40rpx; 
+  font-size: 24rpx;
+}
+.batch-group .batch text,
+.batch-group .batch label{
+  text-align: center;
+  display: inline-block;
+  vertical-align: middle;
+  width: 50rpx;
+  height: 50rpx;
+}
+.batch-group .batch text{
+  padding: 0 10rpx;
+  border-top: 1rpx solid #ddd;
+  border-bottom: 1rpx solid #ddd;
+}
+.batch-group .batch label{
+  border: 1rpx solid #ddd;
+}
+
+
+.option{
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: #fff;
+}
+.option view{
+  padding: 30rpx 0;
+  display: inline-block;
+  vertical-align: middle;
+}
+.option .total{
+  width: 60%;
+}
+.option .deal{
+  width: 40%;
+  background-color: #FF8C00;
+  text-align: center;
+}
+.option .deal text{
+  color: #fff;
+  text-align: center;
+}
+.total-count{
+  margin-left: 30rpx;
+}
+.total-price{
+  margin-left: 15rpx;
+}

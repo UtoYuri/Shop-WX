@@ -1,0 +1,41 @@
+<!--pages/goods/goods.wxml-->
+<swiper indicator-dots="true"
+  autoplay="true" interval="5000" duration="1000" class='banner'>
+  <block wx:for="{{banners}}" wx:key="">
+    <swiper-item>
+      <image mode="aspectFit" src="{{item}}" class="slide-image"/>
+    </swiper-item>
+  </block>
+</swiper>
+<view class='group'>
+  <view class='goods-info'>
+    <text class='goods-name'>{{goods_meta.name}}</text>
+    <text class='goods-price orange'>￥{{goods_meta.price}}</text>
+  </view>
+  <view class='deliver'>
+    <text>邮费: <text class='price red'>{{goods_meta.delivery_type.length == 0 ? goods_meta.freight : goods_meta.delivery_type}}</text></text>
+    <text class='gray'>999+已售</text>
+  </view>
+  <view class='clear'></view>
+</view>
+<view class='title'>
+  <text>—— </text>
+  <text>商品详情</text>
+  <text> ——</text>
+</view>
+<view class='group'>
+  <text class='goods-desc'>{{goods_meta.description}}</text>
+</view>
+<view class='filler'></view>
+
+<view class='option'>
+  <view class='menu'>
+    <view class='menu-link' bindtap='navgateToCart'>
+      <image mode='aspectFit' src='/source/cart.png'></image>
+      <text class='cart'>购物车( <text class='orange'>{{total_cart_num}}</text> )</text>
+    </view>
+  </view>
+  <view class='deal' bindtap='addInCart'>
+    <text>加入购物车</text>
+  </view>
+</view>

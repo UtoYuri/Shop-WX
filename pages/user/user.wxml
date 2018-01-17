@@ -1,0 +1,18 @@
+<!user.wxml-->
+<view class="container top">
+  <view class="userinfo">
+    <button wx:if="{{!hasUserInfo}}" bindtap="getUserInfo"> 点击登录 </button>
+    <block wx:else>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+      <view class="userinfo-nickname">{{userInfo.nickName}}</view>
+    </block>
+  </view>
+</view>
+<view class="container">
+  <view class='optiongroup' wx:for="{{optionGroups}}" wx:for-item="group" wx:key="">
+    <navigator url="{{item.page}}" class='option' wx:for="{{group}}" wx:for-item="item" wx:key="">
+      <image src='{{item.icon}}'></image>
+      <text>{{item.title}}</text>
+    </navigator>
+  </view>
+</view>

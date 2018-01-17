@@ -1,0 +1,80 @@
+/* pages/order/list.wxss */
+page{
+  background-color: #f0f0f0;
+}
+
+view{
+  /* border: 1rpx solid red; */
+}
+.filter-group{
+  background-color: #fff;
+  padding: 0 20rpx;
+}
+.filter{
+  display: inline-block;
+  padding: 15rpx 0;
+  margin: 0 30rpx;
+}
+.checked{
+  color: #FF8C00;
+  border-bottom: 2rpx solid #FF8C00;
+}
+
+.order-group{
+}
+.order{
+  padding: 20rpx 20rpx 10rpx;
+  margin-top: 20rpx;
+  background-color: #fff;
+}
+.order:not(:last-child){
+  border-bottom: 2rpx solid #f0f0f0;
+}
+.order .shop{
+  display: block;
+}
+.order .total{
+  text-align: right;
+  margin-right: 20rpx;
+}
+.total-count{
+  margin-left: 15rpx;
+}
+.total-price{
+  margin-left: 15rpx;
+}
+.order .goods-group{
+  background-color: #f0f0f0;
+  margin: 20rpx 0;
+  padding: 20rpx 0;
+}
+.goods-group .goods{
+  padding: 10rpx 20rpx;
+}
+.goods-group .goods:not(:last-child){
+  border-bottom: 1rpx solid #fff;
+}
+.goods-group .goods image{
+  width: 128rpx;
+  height: 128rpx;
+  display: inline-block;
+  vertical-align: middle;
+}
+.goods-group .goods text{
+  width: 75%;
+  margin-left: 30rpx;
+  display: inline-block;
+  vertical-align: middle;
+}
+.orange{
+  color: #FF8C00;
+}
+.order .option{
+  margin-top: 10rpx;
+  text-align: right;
+}
+.order .option text{
+  padding: 10rpx 30rpx;
+  border: 1rpx solid #ddd;
+  display: inline-block;
+}

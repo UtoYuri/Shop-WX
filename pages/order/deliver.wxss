@@ -1,0 +1,67 @@
+/* pages/order/deliver.wxss */
+page{
+  background-color: #f0f0f0;
+}
+view{
+  /* border: 1px solid red; */
+}
+
+.layer{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #FF8C00;
+}
+.layer-a{
+  height: 200rpx;
+}
+.layer-b{
+  height: 400rpx;
+  border-radius: 200rpx;
+}
+.content{
+  z-index: 999;
+  position: fixed;
+  top: 20rpx;
+  left: 40rpx;
+  right: 40rpx;
+  border-radius: 10rpx;
+  background-color: #fcfcfc;
+  box-shadow: -4rpx 4rpx 8rpx #ddd;
+}
+.deliver-info{
+  padding: 20rpx 0;
+  text-align: center;
+  border-bottom: 1rpx solid #ddd;
+}
+.deliver-info image{
+  display: block;
+  height: 128rpx;
+}
+.deliver-info text{
+  display: block;
+  margin-top: 10rpx;
+}
+.deliver-routes{
+  width: 660rpx;
+  min-height: 300rpx;
+  max-height: 800rpx;
+  padding: 20rpx 0;
+}
+.deliver-routes .route{
+  padding: 20rpx;
+}
+.deliver-routes .route:not(:last-child){
+  border-bottom: 1rpx solid #ddd;
+}
+.deliver-routes text{
+  display: block;
+}
+.deliver-routes .info{
+  color: #000;
+}
+.deliver-routes .time{
+  margin-top: 10rpx;
+  color: #555;
+}

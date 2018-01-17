@@ -1,0 +1,27 @@
+<!--pages/order/list.wxml-->
+<view class='filter-group'>
+  <view class='filter checked'>
+    <text>全部</text>
+  </view>
+  <!-- <view class='filter'>
+    <text>已发货</text>
+  </view> -->
+</view>
+<view class='order-group'>
+  <view class='order'>
+    <text class='shop'>SanDisk闪迪官方旗舰店</text>
+    <view class='goods-group'>
+      <view class='goods'>
+        <image mode='aspectFit' src='/source/icon.png'></image>
+        <text>闪迪SanDisk 酷游 16GB USB3.0 U盘</text>
+      </view>
+    </view>
+    <view class='total'>
+      <text class='total-count'>共1件商品</text>
+      <text class='total-price'>实付款<text class='orange'>￥49.90</text></text>
+    </view>
+    <view class='option'>
+      <text data-deliverid='123' bindtap='showDeliverRoute'>查看物流</text>
+    </view>
+  </view>
+</view>
