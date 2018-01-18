@@ -1,8 +1,8 @@
 <!--pages/about/contact.wxml-->
-<view class='qr'>
+<view class='group'>
   <image mode="aspectFit" src='{{qr[0]}}' bindtap='previewImage'></image>
 </view>
-<view class='tip'>
-  <text class='align-center'>更多规格，请添加微信洽谈。</text>
-  <text class='align-center'>或致电询问, {{phone}}({{name}})</text>
+<view class='group'>
+  <text class='align-center'>更多品相，请添加微信洽谈。</text>
+  <text class='align-center'>或致电询问, {{phone}}（{{name}}）</text>
 </view>

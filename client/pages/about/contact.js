@@ -1,13 +1,13 @@
 // pages/about/contact.js
+var common = require('../../vendor/functions/common.js');
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    qr:[
-      "https://qr.api.cli.im/qr?data=aaa&level=H&transparent=false&bgcolor=%23ffffff&forecolor=%23000000&blockpixel=12&marginblock=1&logourl=&size=280&kid=cliim&key=d363c804aac4f66af28ef73bc6987aef"
-    ],
+    qr: [],
     name: 'X先生',
     phone: '13888888888',
   },
@@ -16,7 +16,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    // 获取商店信息
+    var shop_meta = common.getStorage('shop_meta', true);
+    this.setData({
+      qr: [shop_meta.wxqr] || [],
+      name: shop_meta.shop_host || this.data.name,
+      phone: shop_meta.contact || this.data.phone,
+    });
   },
 
   /**

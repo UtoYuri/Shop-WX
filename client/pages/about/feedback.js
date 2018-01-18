@@ -106,6 +106,9 @@ Page({
         contact: '',
         content: '',
       });
+      wx.showToast({
+        title: '感谢您宝贵的意见',
+      });
     }, function(error){
       wx.showToast({
         title: '反馈失败',

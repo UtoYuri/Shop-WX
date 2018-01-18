@@ -14,7 +14,7 @@
   </view>
   <view class='deliver'>
     <text>邮费: <text class='price red'>{{goods_meta.delivery_type.length == 0 ? goods_meta.freight : goods_meta.delivery_type}}</text></text>
-    <text class='gray'>999+已售</text>
+    <text class='gray'>{{goods_meta.sold_count}}已售</text>
   </view>
   <view class='clear'></view>
 </view>

@@ -22,6 +22,11 @@ view{
 
 .order-group{
 }
+.order-group .tip{
+  margin-top: 20rpx;
+  padding: 20rpx 0;
+  background-color: #FFF;
+}
 .order{
   padding: 20rpx 20rpx 10rpx;
   margin-top: 20rpx;
@@ -74,8 +79,18 @@ view{
   text-align: right;
 }
 .order .option text{
+  vertical-align: middle;
+  display: inline-block;
+}
+.option .order-status,
+.option .order-deliver{
   padding: 10rpx 30rpx;
   border: 1rpx solid #FF8C00;
   border-radius: 5rpx;
-  display: inline-block;
+  margin-left: 20rpx;
+}
+.option .order-date{
+  float: left;
+  margin-top: 20rpx;
+  color: #555;
 }

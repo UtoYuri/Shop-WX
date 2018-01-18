@@ -1,4 +1,6 @@
 // pages/order/deliver.js
+var common = require('../../vendor/functions/common.js');
+
 Page({
 
   /**

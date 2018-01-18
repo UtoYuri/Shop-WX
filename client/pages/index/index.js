@@ -51,31 +51,22 @@ Page({
         }, 3000);
       }
       // 商店信息
+      var shop_meta = {};
       for (var i = 0; i < data.shop_meta.length; ++i){
-        if (data.shop_meta[i].key === 'banner'){
-          banner = data.shop_meta[i].value;
+        // 店铺图片信息
+        if (data.shop_meta[i].key === 'photo'){
+          shop_meta[data.shop_meta[i].key] = shop_meta[data.shop_meta[i].key] || [];
+          shop_meta[data.shop_meta[i].key].push(data.shop_meta[i].value);
+          continue;
         }
-        if (data.shop_meta[i].key === 'name') {
-          name = data.shop_meta[i].value;
-        }
-        if (data.shop_meta[i].key === 'contact') {
-          contact = data.shop_meta[i].value;
-        } 
-        if (data.shop_meta[i].key === 'description') {
-          description = data.shop_meta[i].value;
-        } 
+        shop_meta[data.shop_meta[i].key] = data.shop_meta[i].value;
       }
       $that.setData({
         hasNotice: hasNotice,
         notice: notice,
-        banner: banner,
+        banner: shop_meta['banner'],
       });
-      common.setStorage('shop_meta', {
-        name: name,
-        contact: contact,
-        banner: banner,
-        description: description,
-      }, false);
+      common.setStorage('shop_meta', shop_meta, false);
     }, function (error) {
       console.log("商店信息", error);
     });
@@ -164,6 +155,7 @@ Page({
       var goods = $that.data.goods;
       // 正在加载，忽略此次请求
       if (isLoading) {
+        wx.stopPullDownRefresh();
         return;
       }
     }
@@ -180,6 +172,7 @@ Page({
         page: page + 1,
         goods: common.utils.extend(goods, data.goods_list)
       });
+      wx.stopPullDownRefresh();
     }, function (error) {
       // 加载失败
       console.log("商品列表", error);
@@ -190,6 +183,7 @@ Page({
         title: '加载商品列表失败，请重试。',
         icon: 'loading'
       });
+      wx.stopPullDownRefresh();
     });
   },
 })

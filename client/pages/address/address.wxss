@@ -5,8 +5,8 @@ page {
 }
 
 .address-list {
-  margin-bottom: 20rpx;
-  padding: 0 20rpx;
+  margin: 20rpx 0;
+  padding: 20rpx 20rpx 0;
   background-color: #fff;
 }
 

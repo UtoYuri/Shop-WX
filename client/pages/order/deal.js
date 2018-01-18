@@ -13,7 +13,8 @@ Page({
     cart: [],
     total_price: 0,
     total_goods: 0,
-    total_freight: 0
+    total_freight: 0,
+    remark: "我想要会喷火的葫芦娃"
   },
 
   /**
@@ -129,10 +130,36 @@ Page({
   },
 
   /**
+   * 备注更改
+   */
+  remarkChanged: function (e) {
+    this.setData({
+      remark: e.detail.value
+    });
+  },
+
+  /**
    * 付款
    */
   pay: function () {
     var $that = this;
+    var cart = $that.data.cart;
+    // 购物车空情形
+    if (cart.length == 0) {
+      wx.showToast({
+        title: '订单空空的',
+        icon: 'loading'
+      });
+      return;
+    }
+    // 未登录情形
+    var uniqueID = common.getStorage('uniqueID', true);
+    if (!uniqueID) {
+      wx.switchTab({
+        url: '/pages/user/user',
+      });
+      return;
+    }
     // 检测收货地址
     if (!$that.data.destination) {
       wx.showToast({
@@ -142,11 +169,57 @@ Page({
       return;
     }
     wx.showToast({
-      title: '爷爷舍不得',
+      title: '支付功能申请中',
       icon: 'loading'
     });
+    // // 创建订单 
+    // var goods_in_order = [];
+    // for (var i = 0; i < cart.length; ++i) {
+    //   goods_in_order.push('' + cart[i].goods_id + ':' + cart[i].cart_num);
+    // }
+    // goods_in_order = goods_in_order.join(',')
+    // var order = {
+    //   goods_in_order: goods_in_order,
+    //   goods_count: $that.data.total_goods,
+    //   price_sum: $that.data.total_price,
+    //   freight_sum: $that.data.total_freight,
+    //   remark: $that.data.remark
+    // };
+    // // unionid获取不到 暂用openid
+    // common.createOrder(uniqueID.openid, order, $that.data.destination, function (data) {
+    //   console.log('创建订单', data);
+    //   // 预订单
+    //   common.preOrder(uniqueID.openid, 1, '葫芦娃订单', function(data){
+    //     console.log('微信预订单', data);
+    //     // 调用微信支付接口
+    //     wx.requestPayment({
+    //       timeStamp: '' + data.timeStamp,
+    //       nonceStr: data.nonceStr,
+    //       package: 'prepay_id=' + data.prepayId,
+    //       signType: 'MD5',
+    //       paySign: data.sign,
+    //       'success': function (res) {
+    //         console.log('微信支付', res);
+    //         // 成功则清空购物车并跳转到我的订单列表
+    //         common.setStorage('cart', null, true);
+    //         wx.redirectTo({
+    //           url: '/pages/order/list?icon=success&toast=下单成功',
+    //         });
+    //       },
+    //       'fail': function (res) {
+    //         console.log('微信支付', res);
+    //         wx.showToast({
+    //           title: '支付失败',
+    //           icon: 'loading'
+    //         });
+    //       }
+    //     });
+    //   }, function (error) {
+    //     console.log('微信预订单', error);
+    //   });
+    // }, function(error){
+    //   console.log('创建订单', error);
+    // });
   },
 
-
-  
 })

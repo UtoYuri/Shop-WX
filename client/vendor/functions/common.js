@@ -13,13 +13,13 @@ var getShopMeta = function (successCb, failedCb) {
     },
     method: 'GET'
   }, {
-      success: function (data) {
-        successCb && successCb(data);
-      },
-      failed: function (error) {
-        failedCb && failedCb(error);
-      },
-    });
+    success: function (data) {
+      successCb && successCb(data);
+    },
+    failed: function (error) {
+      failedCb && failedCb(error);
+    },
+  });
 }
 
 /**
@@ -38,13 +38,13 @@ var postFeedback = function (contact, content, successCb, failedCb) {
     },
     method: 'POST'
   }, {
-      success: function (data) {
-        successCb && successCb(data);
-      },
-      failed: function (error) {
-        failedCb && failedCb(error);
-      },
-    });
+    success: function (data) {
+      successCb && successCb(data);
+    },
+    failed: function (error) {
+      failedCb && failedCb(error);
+    },
+  });
 }
 
 /**
@@ -67,13 +67,13 @@ var getUniqueID = function (code, encryptedData, iv, successCb, failedCb) {
     },
     method: 'POST'
   }, {
-      success: function (data) {
-        successCb && successCb(data);
-      },
-      failed: function (error) {
-        failedCb && failedCb(error);
-      },
-    });
+    success: function (data) {
+      successCb && successCb(data);
+    },
+    failed: function (error) {
+      failedCb && failedCb(error);
+    },
+  });
 }
 
 
@@ -96,13 +96,13 @@ var getGoodsListInCart = function (goods_ids, successCb, failedCb) {
     },
     method: 'POST'
   }, {
-      success: function (data) {
-        successCb && successCb(data);
-      },
-      failed: function (error) {
-        failedCb && failedCb(error);
-      },
-    });
+    success: function (data) {
+      successCb && successCb(data);
+    },
+    failed: function (error) {
+      failedCb && failedCb(error);
+    },
+  });
 }
 
 /**
@@ -124,19 +124,19 @@ var getGoodsList = function (page, limit, successCb, failedCb) {
     },
     method: 'POST'
   }, {
-      success: function (data) {
-        successCb && successCb(data);
-      },
-      failed: function (error) {
-        failedCb && failedCb(error);
-      },
-    });
+    success: function (data) {
+      successCb && successCb(data);
+    },
+    failed: function (error) {
+      failedCb && failedCb(error);
+    },
+  });
 }
 
 /**
  * 获取商品信息
  */
-var getGoods = function (goods_id, successCb, failedCb) {
+var getGoods = function (unionid, goods_id, successCb, failedCb) {
   var $that = this;
   if (goods_id <= 0) {
     wx.showToast({
@@ -148,6 +148,7 @@ var getGoods = function (goods_id, successCb, failedCb) {
   vendor.request({
     url: config.api.getGoods,
     data: {
+      unionid: unionid,
       goods_id: goods_id,
     },
     header: {
@@ -155,13 +156,13 @@ var getGoods = function (goods_id, successCb, failedCb) {
     },
     method: 'POST'
   }, {
-      success: function (data) {
-        successCb && successCb(data);
-      },
-      failed: function (error) {
-        failedCb && failedCb(error);
-      },
-    });
+    success: function (data) {
+      successCb && successCb(data);
+    },
+    failed: function (error) {
+      failedCb && failedCb(error);
+    },
+  });
 }
 
 /**
@@ -186,28 +187,28 @@ var getGoodsBanner = function (goods_id, successCb, failedCb) {
     },
     method: 'POST'
   }, {
-      success: function (data) {
-        successCb && successCb(data);
-      },
-      failed: function (error) {
-        failedCb && failedCb(error);
-      },
-    });
+    success: function (data) {
+      successCb && successCb(data);
+    },
+    failed: function (error) {
+      failedCb && failedCb(error);
+    },
+  });
 }
 
 
 /**
  * 获取我的订单
  */
-var getOrders = function (unionid, page, limit, successCb, failedCb) {
+var getOrderList = function (unionid, page, limit, successCb, failedCb) {
   var $that = this;
   if (page <= 0 || limit <= 0) {
     return;
   }
   vendor.request({
-    url: config.api.orderList,
+    url: config.api.getOrderList,
     data: {
-      openid: unionid,
+      unionid: unionid,
       page: page,
       limit: limit,
     },
@@ -216,20 +217,20 @@ var getOrders = function (unionid, page, limit, successCb, failedCb) {
     },
     method: 'POST'
   }, {
-      success: function (data) {
-        successCb && successCb(data);
-      },
-      failed: function (error) {
-        failedCb && failedCb(error);
-      },
-    });
+    success: function (data) {
+      successCb && successCb(data);
+    },
+    failed: function (error) {
+      failedCb && failedCb(error);
+    },
+  });
 }
 
 
 /**
  * 预下订单
  */
-var preOrder = function (openid, description, price, successCb, failedCb) {
+var preOrder = function (unionid, price, description, successCb, failedCb) {
   var $that = this;
   if (price <= 0) {
     return;
@@ -239,37 +240,61 @@ var preOrder = function (openid, description, price, successCb, failedCb) {
     data: {
       price: '' + price,
       description: description,
-      openid: openid,
-      app: 'miniapp',
+      unionid: unionid
     },
     header: {
       'content-type': 'application/x-www-form-urlencoded'
     },
     method: 'POST'
   }, {
-      success: function (data) {
-        successCb && successCb(data);
-      },
-      failed: function (error) {
-        failedCb && failedCb(error);
-      },
-    });
+    success: function (data) {
+      successCb && successCb(data);
+    },
+    failed: function (error) {
+      failedCb && failedCb(error);
+    },
+  });
 }
 
 /**
  * 创建订单
  */
-var createOrder = function (unionid, departure, destination, order, successCb) {
+var createOrder = function (unionid, order, destination, successCb, failedCb) {
   var $that = this;
-  if (typeof (departure.address) == 'undefined'
-    || typeof (destination.address) == 'undefined'
-    || typeof (order.type) == 'undefined') {
+  if (!unionid || !destination.address || !order.goods_count) {
       wx.showToast({
         title: '订单不完善',
         icon: 'loading',
       });
     return;
   }
+  vendor.request({
+    url: config.api.createOrder,
+    data: {
+      unionid: unionid,
+
+      goods_in_order: order.goods_in_order,
+      goods_count: order.goods_count,
+      price_sum: order.price_sum,
+      freight_sum: order.freight_sum,
+      remark: order.remark,
+
+      destination: destination.address.name + ' ' + destination.address.detail,
+      receiver: destination.name,
+      phone: destination.phone,
+    },
+    header: {
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'POST'
+  }, {
+    success: function (data) {
+      successCb && successCb(data);
+    },
+    failed: function (error) {
+      failedCb && failedCb(error);
+    },
+  });
 }
 
 module.exports = {
@@ -288,7 +313,7 @@ module.exports = {
   getGoods: getGoods,
   getGoodsBanner: getGoodsBanner,
 
-  getOrders: getOrders,
+  getOrderList: getOrderList,
   preOrder: preOrder,
   createOrder: createOrder, 
 }

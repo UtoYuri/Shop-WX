@@ -16,18 +16,22 @@
     <text class='shop'>{{shopName}}</text>
     <view class='goods-group'>
       <view class='goods' wx:for="{{cart}}" wx:key="goods_id">
-        <image mode='aspectFit' src='{{item.cover}}'></image>
-        <text>{{item.name}}</text>
-        <view class='batch-group'>
-          <view class='price orange'>￥{{item.price}}</view>
-          <view class='num'>×{{item.cart_num}}</view>
+        <view class='left' data-goodsid='{{item.goods_id}}' bindtap='showGoods'>
+          <image mode='aspectFit' src='{{item.cover}}'></image>
+        </view>
+        <view class='right'>
+          <text class='goods-name'>{{item.name}}</text>
+          <view class='batch-group'>
+            <text class='price orange'>￥{{item.price}}</text>
+            <text class='num'> × {{item.cart_num}}</text>
+          </view>
         </view>
       </view>
     </view>
   </view>
   <view class='remark'>
     <text>备注：</text>
-    <textarea placeholder='订单备注' maxlength='240'></textarea>
+    <textarea placeholder='订单备注' maxlength='240' bindinput='remarkChanged' value='{{remark}}'></textarea>
   </view>
   <view class='deliver'>
     <text>快递费:<text class='price orange'>￥{{total_freight}}</text></text>

@@ -1,18 +1,20 @@
 <!--pages/about/about.wxml-->
 <swiper indicator-dots="true"
   autoplay="true" interval="5000" duration="1000" class='banner'>
-  <block wx:for="{{banners}}">
+  <block wx:for="{{banners}}" wx:key="">
     <swiper-item>
       <image mode="aspectFit" src="{{item}}" class="slide-image"/>
     </swiper-item>
   </block>
 </swiper>
 <view class='group'>
-  <text>这里是商店介绍这里是商店介绍这里是商店介绍这里是商店介绍这里是商店介绍</text>
-  <text>这里是商店介绍这里是商店介绍这里是商店介绍这里是商店介绍这里是商店介绍</text>
-  <text>这里是商店介绍这里是商店介绍这里是商店介绍这里是商店介绍这里是商店介绍</text>
+  <text>{{shopName}}</text>
+  <text>联系方式： {{contact}}</text>
+</view>
+<view class='group'>
+  <text>{{description}}</text>
 </view>
 <view class='group' wx-if='{{enableAuthor}}'>
-  <text class='align-center small-size'>小程序作者: @白蛙</text>
-  <text class='align-center small-size'>g.walkingfrog@gmail.com</text>
+  <text class='align-center small-size'>小程序作者: @{{authorName}}</text>
+  <text class='align-center small-size'>{{authorContact}}</text>
 </view>

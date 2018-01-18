@@ -3,25 +3,28 @@
   <view class='filter checked'>
     <text>全部</text>
   </view>
-  <!-- <view class='filter'>
+   <!-- <view class='filter'>
     <text>已发货</text>
-  </view> -->
+  </view>  -->
 </view>
 <view class='order-group'>
-  <view class='order'>
-    <text class='shop'>SanDisk闪迪官方旗舰店</text>
+  <text class='small-size align-center tip' wx:if="{{orders.length == 0}}">快去下单吧</text>
+  <view class='order' wx:for="{{orders}}" wx:key="id">
+    <text class='shop'>{{shopName}}</text>
     <view class='goods-group'>
-      <view class='goods'>
-        <image mode='aspectFit' src='/source/icon.png'></image>
-        <text>闪迪SanDisk 酷游 16GB USB3.0 U盘</text>
+      <view class='goods' wx:for="{{item.goods}}" wx:key="goods_id" wx:for-item="goods">
+        <image mode='aspectFit' src='{{goods.cover}}'></image>
+        <text>{{goods.name}} - <text class='orange'>￥{{goods.price}}</text> × {{goods.goods_count}}</text>
       </view>
     </view>
     <view class='total'>
-      <text class='total-count'>共1件商品</text>
-      <text class='total-price'>实付款<text class='orange'>￥49.90</text></text>
+      <text class='total-count'>共 <text class='orange'>{{item.goods_count}}</text> 件商品</text>
+      <text class='total-price'>共 <text class='orange'>￥{{item.price_sum}}</text> </text>
     </view>
     <view class='option'>
-      <text data-deliverid='123' bindtap='showDeliverRoute'>查看物流</text>
+      <text class='order-date small-size'>{{item.create_at}}</text>
+      <text class='order-status' wx:if="{{item.pay_status == '0'}}" data-orderid='{{item.id}}' bindtap='pay'>支付</text>
+      <text class='order-deliver' wx:if="{{item.delivery_number}}" data-deliverid='{{item.delivery_number}}' bindtap='showDeliverRoute'>查看物流</text>
     </view>
   </view>
 </view>

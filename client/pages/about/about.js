@@ -1,17 +1,20 @@
 // pages/about/about.js
+var common = require('../../vendor/functions/common.js');
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    banners: [
-      "https://qr.api.cli.im/qr?data=aaa&level=H&transparent=false&bgcolor=%23ffffff&forecolor=%23000000&blockpixel=12&marginblock=1&logourl=&size=280&kid=cliim&key=d363c804aac4f66af28ef73bc6987aef",
-      "https://qr.api.cli.im/qr?data=aaa&level=H&transparent=false&bgcolor=%23ffffff&forecolor=%23000000&blockpixel=12&marginblock=1&logourl=&size=280&kid=cliim&key=d363c804aac4f66af28ef73bc6987aef",
-      "https://qr.api.cli.im/qr?data=aaa&level=H&transparent=false&bgcolor=%23ffffff&forecolor=%23000000&blockpixel=12&marginblock=1&logourl=&size=280&kid=cliim&key=d363c804aac4f66af28ef73bc6987aef",
-      "https://qr.api.cli.im/qr?data=aaa&level=H&transparent=false&bgcolor=%23ffffff&forecolor=%23000000&blockpixel=12&marginblock=1&logourl=&size=280&kid=cliim&key=d363c804aac4f66af28ef73bc6987aef"
-    ],
+    banners: [],
     enableAuthor: true,
+    contact: '',
+    shopName: '',
+    description: '',
+
+    authorName: '',
+    authorContact: '',
   },
 
   /**
@@ -23,6 +26,16 @@ Page({
         enableAuthor: false
       });
     }
+    // 获取商店信息
+    var shop_meta = common.getStorage('shop_meta', true);
+    this.setData({
+      shopName: shop_meta.name || this.data.shopName,
+      contact: shop_meta.contact || this.data.contact,
+      description: shop_meta.description || this.data.description,
+      banners: shop_meta.photo || this.data.photo,
+      authorName: shop_meta.author_name || this.data.authorName,
+      authorContact: shop_meta.author_contact || this.data.authorContact,
+    });
   },
 
   /**

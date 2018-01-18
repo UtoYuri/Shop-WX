@@ -23,7 +23,7 @@ Page({
       [
         {
           'page': '/pages/about/contact',
-          'title': '更多规格',
+          'title': '更多品相',
           'icon': '/source/page.png'
         },
       ],

@@ -126,18 +126,24 @@ Page({
     var $that = this;
     var banners = [];
     // 获取商品信息
-    common.getGoods(goods_id, function (data) {
+    var uniqueID = common.getStorage('uniqueID', true);
+    // 暂用openid
+    // common.getGoods(uniqueID.unionid || '', goods_id, function (data) {
+    common.getGoods(uniqueID.openid || '', goods_id, function (data) {
       // 获取商品信息成功
       console.log("商品信息", data);
       var goods = data.goods[0] || {};
+      goods.sold_count = '999+';  // 自慰销售量
       goods.cover && banners.push(goods.cover);
       $that.setData({
         goods_meta: goods,
         banners: banners,
       });
+      wx.stopPullDownRefresh();
     }, function (error) {
       // 获取商品信息失败
       console.log("商品信息", error);
+      wx.stopPullDownRefresh();
     });
 
     // 获取商品展示图
@@ -151,9 +157,11 @@ Page({
       $that.setData({
         banners: banners,
       });
+      wx.stopPullDownRefresh();
     }, function (error) {
       // 获取商品展示图失败
       console.log("商品展示图", error);
+      wx.stopPullDownRefresh();
     });
   }
 })
