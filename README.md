@@ -21,7 +21,7 @@
 - 用户反馈、商店介绍等
 
 ## 小程序预览
-![选购中心](https://github.com/WalkingFrog/Shop-WX/blob/master/other/1.png)
-![购物车](https://github.com/WalkingFrog/Shop-WX/blob/master/other/2.png)
-![个人中心](https://github.com/WalkingFrog/Shop-WX/blob/master/other/3.png)
-![下单页面](https://github.com/WalkingFrog/Shop-WX/blob/master/other/4.png)
+![选购中心](https://github.com/WalkingFrog/Shop-WX/blob/master/other/1.jpg)
+![购物车](https://github.com/WalkingFrog/Shop-WX/blob/master/other/2.jpg)
+![个人中心](https://github.com/WalkingFrog/Shop-WX/blob/master/other/3.jpg)
+![下单页面](https://github.com/WalkingFrog/Shop-WX/blob/master/other/4.jpg)
