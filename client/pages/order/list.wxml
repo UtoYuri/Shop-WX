@@ -24,7 +24,7 @@
     <view class='option'>
       <text class='order-date small-size'>{{item.create_at}}</text>
       <text class='order-status' wx:if="{{item.pay_status == '0'}}" data-orderid='{{item.id}}' bindtap='pay'>支付</text>
-      <text class='order-deliver' wx:if="{{item.delivery_number}}" data-deliverid='{{item.delivery_number}}' bindtap='showDeliverRoute'>查看物流</text>
+      <text class='order-deliver' wx:if="{{item.delivery_number}}" data-deliverycompany='{{item.delivery_company}}' data-deliverynumber='{{item.delivery_number}}' bindtap='showDeliverRoute'>查看物流</text>
     </view>
   </view>
 </view>

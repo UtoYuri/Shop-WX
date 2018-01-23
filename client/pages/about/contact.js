@@ -1,4 +1,5 @@
 // pages/about/contact.js
+var mta = require('../../vendor/utils/mta_analysis.js');
 var common = require('../../vendor/functions/common.js');
 
 Page({
@@ -23,6 +24,8 @@ Page({
       name: shop_meta.shop_host || this.data.name,
       phone: shop_meta.contact || this.data.phone,
     });
+    // 腾讯分析
+    mta.Page.init();
   },
 
   /**

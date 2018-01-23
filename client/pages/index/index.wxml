@@ -32,7 +32,7 @@
     <text class='goods-price orange'>￥{{item.price}}</text>
     <view class='deliver'>
       <text>邮费: <text class='price red'>{{item.delivery_type.length == 0 ? item.freight : item.delivery_type}}</text></text>
-      <text class='gray'>999+已售</text>
+      <text class='gray'>0已售</text>
     </view>
   </view>
 </view>

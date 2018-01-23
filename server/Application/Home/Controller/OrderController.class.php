@@ -204,6 +204,38 @@ class OrderController extends Controller {
 		));
 	}
 
+
+	/**
+	 * 根据快递公司和单号获取快递信息
+	 * @return json 
+	*/
+	public function delivery_status(){
+		// 获取请求参数
+		$company = I('post.company/s', '');
+		$number = I('post.number/s', '');
+
+
+		try {
+			$orderTraces = getOrderTraces($company, $number);
+			$orderTraces = json_decode($orderTraces, true);
+		} catch (Exception $e) {
+	        // 回应请求
+			$this->ajaxReturn(array(
+				'status' => false, 
+				'err' => "查询快递信息失败[".$e."]", 
+			));
+		}
+
+
+		// 回应请求
+		$this->ajaxReturn(array(
+			'status' => true, 
+			'delivery_status' => $orderTraces['data'], 
+			'err' => "", 
+		));
+	}
+
+
 	/** 
 	 * 根据unionid获取用户id
 	 * @param string $unionid 用户微信unionid

@@ -1,6 +1,7 @@
 //user.js
 //获取应用实例
 const app = getApp();
+var mta = require('../../vendor/utils/mta_analysis.js');
 var common = require('../../vendor/functions/common.js');
 
 Page({
@@ -54,6 +55,8 @@ Page({
         hasUserInfo: true
       });
     }
+    // 腾讯分析
+    mta.Page.init();
   },
 
   /**

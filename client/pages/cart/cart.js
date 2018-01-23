@@ -1,4 +1,5 @@
 // pages/cart/cart.js
+var mta = require('../../vendor/utils/mta_analysis.js');
 var common = require('../../vendor/functions/common.js');
 
 Page({
@@ -22,6 +23,8 @@ Page({
     this.setData({
       shopName: shop_meta.name || this.data.shopName
     });
+    // 腾讯分析
+    mta.Page.init();
   },
 
   /**

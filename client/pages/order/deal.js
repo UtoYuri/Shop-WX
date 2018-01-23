@@ -1,5 +1,6 @@
 // pages/order/deal.js
-const app = getApp()
+const app = getApp();
+var mta = require('../../vendor/utils/mta_analysis.js');
 var common = require('../../vendor/functions/common.js');
 
 Page({
@@ -14,7 +15,7 @@ Page({
     total_price: 0,
     total_goods: 0,
     total_freight: 0,
-    remark: "我想要会喷火的葫芦娃"
+    remark: ""
   },
 
   /**
@@ -63,6 +64,8 @@ Page({
     }, function (error) {
       console.log('购物车商品列表', error);
     });
+    // 腾讯分析
+    mta.Page.init();
   },
 
   /**

@@ -1,5 +1,6 @@
 // pages/my/address.js
 const app = getApp()
+var mta = require('../../vendor/utils/mta_analysis.js');
 var common = require('../../vendor/functions/common.js');
 var vendor = require('../../vendor/index');
 
@@ -26,6 +27,8 @@ Page({
         point: options.point
       });
     }
+    // 腾讯分析
+    mta.Page.init();
   },
 
   /**

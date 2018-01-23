@@ -27,14 +27,20 @@ var config = {
     // 获取商品展示图信息
     getGoodsBanner: `${protocol}://${host}/Home/Goods/get_goods_banner`,
 
+    // 用户反馈
+    postFeedback: `${protocol}://${host}/Home/Index/post_feedback`,
+
     // 生成预订单
-    preOrder: `${protocol}://${host}/Order/Index/pre_order`,
+    preOrder: `${protocol}://${host}/Home/Order/pre_order`,
 
     // 创建订单
-    createOrder: `${protocol}://${host}/Order/Index/create_order`,
+    createOrder: `${protocol}://${host}/Home/Order/create_order`,
 
     // 查看订单
-    orderList: `${protocol}://${host}/Order/Index/order_list`,
+    getOrderList: `${protocol}://${host}/Home/Order/order_list`,
+
+    // 查看物流
+    getDeliveryStatus: `${protocol}://${host}/Home/Order/delivery_status`,
   }
 };
 

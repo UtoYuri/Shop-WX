@@ -1,4 +1,5 @@
 //app.js
+var mta = require('./vendor/utils/mta_analysis.js');
 var common = require('./vendor/functions/common.js');
 
 App({
@@ -44,6 +45,14 @@ App({
           }
         });
       }
+    });
+    // 腾讯分析
+    mta.App.init({
+      "appID": "your appid",
+      "eventID": "your eventid",
+      "statPullDownFresh": true,
+      "statShareApp": true,
+      "statReachBottom": true
     });
   },
   globalData: {

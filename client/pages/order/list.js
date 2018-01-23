@@ -1,4 +1,5 @@
 // pages/order/list.js
+var mta = require('../../vendor/utils/mta_analysis.js');
 var common = require('../../vendor/functions/common.js');
 
 Page({
@@ -42,6 +43,8 @@ Page({
       unionid: uniqueID.openid  // 暂用openid自慰
     });
     this.getOrderList(true);
+    // 腾讯分析
+    mta.Page.init();
   },
 
   /**
@@ -96,9 +99,11 @@ Page({
   /**
    * 用户点击查看物流
    */
-  showDeliverRoute: function(e) {
+  showDeliverRoute: function (e) {
+    var deliveryCompany = e.currentTarget.dataset.deliverycompany;
+    var deliveryNumber = e.currentTarget.dataset.deliverynumber;
     wx.navigateTo({
-      url: '/pages/order/deliver?deliverid=' + e.currentTarget.dataset.deliverid,
+      url: '/pages/order/deliver?number=' + deliveryNumber + '&company=' + deliveryCompany,
     })
   },
 

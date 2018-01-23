@@ -138,3 +138,68 @@ function wxLogin($code, $encryptedData, $iv){
 		);
 	}
 }
+
+ 
+/**
+ * 查询订单物流轨迹
+ * @param  string $company 快递公司(按照快递100文档对应)
+ * @param  string $number 快递单号
+ * @return  string 物流轨迹json
+ */
+function getOrderTraces($company, $number){
+	$data = array(
+        'type' => $company,
+        'postid' => $number,
+    );
+
+	$result = curlGet('https://m.kuaidi100.com/query', $data);	
+	
+	//根据公司业务处理返回的信息......
+	return $result;
+}
+
+/**
+ *  get请求
+ * @param  string $url 请求Url
+ * @param  array $data 提交的数据 
+ * @return url响应返回的html
+ */
+function curlGet($url, $data) {
+	$url = $url.'?'.http_build_query($data);
+    $curl = curl_init();  //初始化
+	curl_setopt($curl,CURLOPT_URL,$url);  //设置url
+	curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($curl, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1);
+	curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
+	curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);
+
+	$result = curl_exec($curl);
+	if($result === false){
+	    $result = curl_errno($curl);
+	}
+	curl_close($curl);
+	return $result;
+}
+ 
+/**
+ *  post提交数据 
+ * @param  string $url 请求Url
+ * @param  array $data 提交的数据 
+ * @return url响应返回的html
+ */
+function curlPost($url, $data) {
+    $curl = curl_init();  //初始化
+	curl_setopt($curl,CURLOPT_URL,$url);  //设置url
+	curl_setopt($curl,CURLOPT_HTTPAUTH,CURLAUTH_BASIC);  //设置http验证方法
+	curl_setopt($curl,CURLOPT_HEADER,0);  //设置头信息
+	curl_setopt($curl,CURLOPT_RETURNTRANSFER,1);  //设置curl_exec获取的信息的返回方式
+	curl_setopt($curl,CURLOPT_POST,1);  //设置发送方式为post请求
+	curl_setopt($curl,CURLOPT_POSTFIELDS,$data);  //设置post的数据
+
+	$result = curl_exec($curl);
+	if($result === false){
+	    $result = curl_errno($curl);
+	}
+	curl_close($curl);
+	return $result;
+}

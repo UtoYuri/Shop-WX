@@ -1,4 +1,5 @@
 // pages/about/feedback.js
+var mta = require('../../vendor/utils/mta_analysis.js');
 var common = require('../../vendor/functions/common.js');
 
 Page({
@@ -15,7 +16,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+
+    // 腾讯分析
+    mta.Page.init();
   },
 
   /**

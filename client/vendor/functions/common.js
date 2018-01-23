@@ -228,6 +228,35 @@ var getOrderList = function (unionid, page, limit, successCb, failedCb) {
 
 
 /**
+ * 获取物流信息
+ */
+var getDeliveryStatus = function (deliveryCompany, deliveryNumber, successCb, failedCb) {
+  var $that = this;
+  if (!deliveryCompany || !deliveryNumber) {
+    return;
+  }
+  vendor.request({
+    url: config.api.getDeliveryStatus,
+    data: {
+      company: deliveryCompany,
+      number: deliveryNumber,
+    },
+    header: {
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'POST'
+  }, {
+    success: function (data) {
+      successCb && successCb(data);
+    },
+    failed: function (error) {
+      failedCb && failedCb(error);
+    },
+  });
+}
+
+
+/**
  * 预下订单
  */
 var preOrder = function (unionid, price, description, successCb, failedCb) {
@@ -312,6 +341,7 @@ module.exports = {
   getGoodsList: getGoodsList,
   getGoods: getGoods,
   getGoodsBanner: getGoodsBanner,
+  getDeliveryStatus: getDeliveryStatus,
 
   getOrderList: getOrderList,
   preOrder: preOrder,

@@ -1,4 +1,5 @@
 // pages/goods/goods.js
+var mta = require('../../vendor/utils/mta_analysis.js');
 var common = require('../../vendor/functions/common.js');
 
 Page({
@@ -26,6 +27,8 @@ Page({
       total_cart_num: total_cart_num
     });
     this.getGoods(options.goods_id);
+    // 腾讯分析
+    mta.Page.init();
   },
 
   /**
@@ -133,7 +136,7 @@ Page({
       // 获取商品信息成功
       console.log("商品信息", data);
       var goods = data.goods[0] || {};
-      goods.sold_count = '999+';  // 自慰销售量
+      goods.sold_count = '0';  // 自慰销售量
       goods.cover && banners.push(goods.cover);
       $that.setData({
         goods_meta: goods,

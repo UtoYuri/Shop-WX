@@ -4,80 +4,13 @@
 <view class='content'>
   <view class='deliver-info'>
     <image mode='aspectFit' src='/source/send.png'></image>
-    <text>顺丰快递</text>
+    <text>{{deliveryCompany}}</text>
+    <text>{{deliveryNumber}}</text>
   </view>
   <scroll-view class='deliver-routes' scroll-y="true">
-    <view class='route'>
-      <text class='info'>[淮安市]快件离开[淮安中专]已发往[宿迁中专]</text>
-      <text class='time small-size'>2018-01-01 00:00:00</text>
-    </view>
-    <view class='route'>
-      <text class='info'>[淮安市]快件离开[淮安中专]已发往[宿迁中专]</text>
-      <text class='time small-size'>2018-01-01 00:00:00</text>
-    </view>
-    <view class='route'>
-      <text class='info'>[淮安市]快件离开[淮安中专]已发往[宿迁中专]</text>
-      <text class='time small-size'>2018-01-01 00:00:00</text>
-    </view>
-    <view class='route'>
-      <text class='info'>[淮安市]快件离开[淮安中专]已发往[宿迁中专]</text>
-      <text class='time small-size'>2018-01-01 00:00:00</text>
-    </view>
-    <view class='route'>
-      <text class='info'>[淮安市]快件离开[淮安中专]已发往[宿迁中专]</text>
-      <text class='time small-size'>2018-01-01 00:00:00</text>
-    </view>
-    <view class='route'>
-      <text class='info'>[淮安市]快件离开[淮安中专]已发往[宿迁中专]</text>
-      <text class='time small-size'>2018-01-01 00:00:00</text>
-    </view>
-    <view class='route'>
-      <text class='info'>[淮安市]快件离开[淮安中专]已发往[宿迁中专]</text>
-      <text class='time small-size'>2018-01-01 00:00:00</text>
-    </view>
-    <view class='route'>
-      <text class='info'>[淮安市]快件离开[淮安中专]已发往[宿迁中专]</text>
-      <text class='time small-size'>2018-01-01 00:00:00</text>
-    </view>
-    <view class='route'>
-      <text class='info'>[淮安市]快件离开[淮安中专]已发往[宿迁中专]</text>
-      <text class='time small-size'>2018-01-01 00:00:00</text>
-    </view>
-    <view class='route'>
-      <text class='info'>[淮安市]快件离开[淮安中专]已发往[宿迁中专]</text>
-      <text class='time small-size'>2018-01-01 00:00:00</text>
-    </view>
-    <view class='route'>
-      <text class='info'>[淮安市]快件离开[淮安中专]已发往[宿迁中专]</text>
-      <text class='time small-size'>2018-01-01 00:00:00</text>
-    </view>
-    <view class='route'>
-      <text class='info'>[淮安市]快件离开[淮安中专]已发往[宿迁中专]</text>
-      <text class='time small-size'>2018-01-01 00:00:00</text>
-    </view>
-    <view class='route'>
-      <text class='info'>[淮安市]快件离开[淮安中专]已发往[宿迁中专]</text>
-      <text class='time small-size'>2018-01-01 00:00:00</text>
-    </view>
-    <view class='route'>
-      <text class='info'>[淮安市]快件离开[淮安中专]已发往[宿迁中专]</text>
-      <text class='time small-size'>2018-01-01 00:00:00</text>
-    </view>
-    <view class='route'>
-      <text class='info'>[淮安市]快件离开[淮安中专]已发往[宿迁中专]</text>
-      <text class='time small-size'>2018-01-01 00:00:00</text>
-    </view>
-    <view class='route'>
-      <text class='info'>[淮安市]快件离开[淮安中专]已发往[宿迁中专]</text>
-      <text class='time small-size'>2018-01-01 00:00:00</text>
-    </view>
-    <view class='route'>
-      <text class='info'>[淮安市]快件离开[淮安中专]已发往[宿迁中专]</text>
-      <text class='time small-size'>2018-01-01 00:00:00</text>
-    </view>
-    <view class='route'>
-      <text class='info'>[淮安市]快件离开[淮安中专]已发往[宿迁中专]</text>
-      <text class='time small-size'>2018-01-01 00:00:00</text>
+    <view class='route' wx:for="{{deliveryStatus}}" wx:key="">
+      <text class='info'>{{item.context}}</text>
+      <text class='time small-size'>{{item.time}}</text>
     </view>
   </scroll-view>
 </view>

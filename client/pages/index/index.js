@@ -1,4 +1,5 @@
 // pages/index/index.js
+var mta = require('../../vendor/utils/mta_analysis.js');
 var common = require('../../vendor/functions/common.js');
 
 Page({
@@ -70,6 +71,8 @@ Page({
     }, function (error) {
       console.log("商店信息", error);
     });
+    // 腾讯分析
+    mta.Page.init();
   },
 
   /**

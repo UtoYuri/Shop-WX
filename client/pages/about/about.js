@@ -1,4 +1,5 @@
 // pages/about/about.js
+var mta = require('../../vendor/utils/mta_analysis.js');
 var common = require('../../vendor/functions/common.js');
 
 Page({
@@ -36,6 +37,8 @@ Page({
       authorName: shop_meta.author_name || this.data.authorName,
       authorContact: shop_meta.author_contact || this.data.authorContact,
     });
+    // 腾讯分析
+    mta.Page.init();
   },
 
   /**

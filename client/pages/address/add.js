@@ -1,4 +1,5 @@
 // pages/address/add.js
+var mta = require('../../vendor/utils/mta_analysis.js');
 var common = require('../../vendor/functions/common.js');
 var vendor = require('../../vendor/index');
 var citys = require('../../vendor/utils/citys.js');
@@ -19,9 +20,9 @@ Page({
     addressIndex: -1,
 
     // 直观值
-    name: '蝎子精',
+    name: '',
     gender: '先生',
-    phone: '13888888888',
+    phone: '',
     address: {}
   },
 
@@ -53,6 +54,8 @@ Page({
         });
       }
     }
+    // 腾讯分析
+    mta.Page.init();
   },
 
   /**
