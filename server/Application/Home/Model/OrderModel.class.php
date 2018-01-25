@@ -52,6 +52,57 @@ class OrderModel extends Model {
         return $result != false;
     }
 
+    /** 
+     * 更新订单prepay_id
+     * @param string  $order_id 订单id
+     * @param string  $prepay_id 预订单信息
+     * @return boolean 操作结果
+     */  
+    public function set_prepayid_2_order($order_id, $prepay_id){
+        // 插入数据
+        $condition = array(
+            'id'  => $order_id,
+        );
+        $data = array(
+            'prepay_id'  => $prepay_id,
+        );
+        $result = $this->table('t_order')->where($condition)->save($data);
+        return $result != false;
+    }
+
+    /** 
+     * 根据orderstamp获取订单信息
+     * @param string $order_stamp 订单编号
+     * @return array 订单
+     */  
+    public function get_order($order_stamp){
+        $condition = array(
+            'order_stamp' => $order_stamp,
+        );
+        // 获取订单内容
+        $result = $this->table('v_order_meta')->where($condition)->select();
+        return $result;
+    }
+
+    /** 
+     * 更新订单支付状态
+     * @param string $id 订单id
+     * @param string $pay_status 支付状态
+     * @param string $pay_type 支付类型
+     * @return boolean 操作结果
+     */  
+    public function update_pay_status($id, $pay_status, $pay_type){
+        $condition = array(
+            'id' => $id,
+        );
+        $data = array(
+            'pay_status' => $pay_status,
+            'pay_type' => $pay_type,
+        );
+        // 获取订单内容
+        $result = $this->table('t_order')->where($condition)->save($data);
+        return $result != false;
+    }
 
     /** 
      * 分页获取订单列表

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: 2018-01-23 09:14:53
+-- Generation Time: 2018-01-25 10:29:27
 -- 服务器版本： 5.7.19
 -- PHP Version: 5.6.31
 
@@ -182,6 +182,7 @@ CREATE TABLE IF NOT EXISTS `t_order` (
   `remark` varchar(500) COLLATE utf8_bin DEFAULT NULL,
   `pay_status` int(11) NOT NULL DEFAULT '0',
   `pay_type` varchar(20) COLLATE utf8_bin DEFAULT NULL,
+  `prepay_id` varchar(100) COLLATE utf8_bin DEFAULT NULL,
   `pay_sum` float DEFAULT NULL,
   `destination` varchar(200) COLLATE utf8_bin NOT NULL,
   `receiver` varchar(50) COLLATE utf8_bin NOT NULL,
@@ -191,14 +192,7 @@ CREATE TABLE IF NOT EXISTS `t_order` (
   `create_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status` varchar(20) COLLATE utf8_bin NOT NULL DEFAULT 'normal',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='订单表';
-
---
--- 转存表中的数据 `t_order`
---
-
-INSERT INTO `t_order` (`id`, `goods_count`, `price_sum`, `freight_sum`, `remark`, `pay_status`, `pay_type`, `pay_sum`, `destination`, `receiver`, `phone`, `delivery_company`, `delivery_number`, `create_at`, `status`) VALUES
-(1, 1, 99, 0, '我要会喷火的葫芦娃。', 1, 'wechat', 99, '河北省石家庄市 123', '蝎子精', '13888888888', 'shunfeng', '789601966832', '2018-01-23 16:42:40', 'normal');
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='订单表';
 
 -- --------------------------------------------------------
 
@@ -213,14 +207,7 @@ CREATE TABLE IF NOT EXISTS `t_order_goods` (
   `goods_id` int(11) NOT NULL,
   `goods_count` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='订单关联商品表';
-
---
--- 转存表中的数据 `t_order_goods`
---
-
-INSERT INTO `t_order_goods` (`id`, `order_id`, `goods_id`, `goods_count`) VALUES
-(1, 1, 2, 1);
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='订单关联商品表';
 
 -- --------------------------------------------------------
 
@@ -235,14 +222,16 @@ CREATE TABLE IF NOT EXISTS `t_record_view` (
   `user_id` int(11) NOT NULL,
   `view_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='浏览记录表';
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='浏览记录表';
 
 --
 -- 转存表中的数据 `t_record_view`
 --
 
 INSERT INTO `t_record_view` (`id`, `goods_id`, `user_id`, `view_at`) VALUES
-(1, 1, 1, '2018-01-23 16:40:38');
+(1, 1, 1, '2018-01-23 16:40:38'),
+(2, 1, 2, '2018-01-25 17:59:43'),
+(3, 1, 2, '2018-01-25 18:25:34');
 
 -- --------------------------------------------------------
 
@@ -285,7 +274,7 @@ INSERT INTO `t_shop_meta` (`id`, `key`, `value`, `create_at`) VALUES
 DROP TABLE IF EXISTS `t_user`;
 CREATE TABLE IF NOT EXISTS `t_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `union_id` varchar(50) COLLATE utf8_bin NOT NULL,
+  `openid` varchar(50) COLLATE utf8_bin NOT NULL,
   `nickname` varchar(100) COLLATE utf8_bin NOT NULL,
   `gender` varchar(10) COLLATE utf8_bin NOT NULL,
   `city` varchar(50) COLLATE utf8_bin DEFAULT NULL,
@@ -293,14 +282,14 @@ CREATE TABLE IF NOT EXISTS `t_user` (
   `last_login` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status` varchar(20) COLLATE utf8_bin NOT NULL DEFAULT 'normal',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='用户表';
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='用户表';
 
 --
 -- 转存表中的数据 `t_user`
 --
 
-INSERT INTO `t_user` (`id`, `union_id`, `nickname`, `gender`, `city`, `avatar_url`, `last_login`, `status`) VALUES
-(1, 'oLUGt4n-q5Zu3IMBwmh3TPKiua9E', '白蛙', '先生', 'Suqian', 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83epbnxl692C9fqMrojiaictf7qJcmYTp5vpHqWeyfQeZicXqNgUzzkcMrQlI0T41Wp91Wtbyrvn78KVhA/0', '2018-01-23 16:40:25', 'normal');
+INSERT INTO `t_user` (`id`, `openid`, `nickname`, `gender`, `city`, `avatar_url`, `last_login`, `status`) VALUES
+(2, 'oLUGt4n-q5Zu3IMBwmh3TPKiua9E', '白蛙', '先生', 'Suqian', 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83epbnxl692C9fqMrojiaictf7qJcmYTp5vpHqWeyfQeZicXqNgUzzkcMrQlI0T41Wp91Wtbyrvn78KVhA/0', '2018-01-25 17:59:32', 'normal');
 
 -- --------------------------------------------------------
 
@@ -316,14 +305,7 @@ CREATE TABLE IF NOT EXISTS `t_user_order` (
   `order_stamp` varchar(20) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`id`),
   KEY `order_stamp` (`order_stamp`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='用户关联订单表';
-
---
--- 转存表中的数据 `t_user_order`
---
-
-INSERT INTO `t_user_order` (`id`, `user_id`, `order_id`, `order_stamp`) VALUES
-(1, 1, 1, '20180123164240652941');
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='用户关联订单表';
 
 -- --------------------------------------------------------
 
@@ -412,6 +394,7 @@ CREATE TABLE IF NOT EXISTS `v_order_meta` (
 ,`remark` varchar(500)
 ,`pay_status` int(11)
 ,`pay_type` varchar(20)
+,`prepay_id` varchar(100)
 ,`pay_sum` float
 ,`destination` varchar(200)
 ,`receiver` varchar(50)
@@ -465,7 +448,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `v_order_meta`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_order_meta`  AS  select `t_order`.`id` AS `id`,`t_user_order`.`order_stamp` AS `order_stamp`,`t_user_order`.`user_id` AS `user_id`,`t_order`.`goods_count` AS `goods_count`,`t_order`.`price_sum` AS `price_sum`,`t_order`.`freight_sum` AS `freight_sum`,`t_order`.`remark` AS `remark`,`t_order`.`pay_status` AS `pay_status`,`t_order`.`pay_type` AS `pay_type`,`t_order`.`pay_sum` AS `pay_sum`,`t_order`.`destination` AS `destination`,`t_order`.`receiver` AS `receiver`,`t_order`.`phone` AS `phone`,`t_order`.`delivery_number` AS `delivery_number`,`t_order`.`delivery_company` AS `delivery_company`,`t_order`.`create_at` AS `create_at`,`t_order`.`status` AS `status` from (`t_order` left join `t_user_order` on((`t_order`.`id` = `t_user_order`.`order_id`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_order_meta`  AS  select `t_order`.`id` AS `id`,`t_user_order`.`order_stamp` AS `order_stamp`,`t_user_order`.`user_id` AS `user_id`,`t_order`.`goods_count` AS `goods_count`,`t_order`.`price_sum` AS `price_sum`,`t_order`.`freight_sum` AS `freight_sum`,`t_order`.`remark` AS `remark`,`t_order`.`pay_status` AS `pay_status`,`t_order`.`pay_type` AS `pay_type`,`t_order`.`prepay_id` AS `prepay_id`,`t_order`.`pay_sum` AS `pay_sum`,`t_order`.`destination` AS `destination`,`t_order`.`receiver` AS `receiver`,`t_order`.`phone` AS `phone`,`t_order`.`delivery_number` AS `delivery_number`,`t_order`.`delivery_company` AS `delivery_company`,`t_order`.`create_at` AS `create_at`,`t_order`.`status` AS `status` from (`t_order` left join `t_user_order` on((`t_order`.`id` = `t_user_order`.`order_id`))) ;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

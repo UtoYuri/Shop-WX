@@ -78,7 +78,7 @@ class GoodsController extends Controller {
 	public function get_goods() {
 		// 获取请求参数
 		$goods_id = I('post.goods_id/d', 0);
-		$unionid = I('post.unionid/s', '');
+		$openid = I('post.openid/s', '');
 
 		// 获取商品信息
 		try {
@@ -100,7 +100,7 @@ class GoodsController extends Controller {
 	        // 创建用户模型
 	        $user_model = D('User');
 	        // 获取用户id
-	        $user = $user_model->get_user_id($unionid);
+	        $user = $user_model->get_user_id($openid);
 	        if (count($user) == 0){
 	            $user_id = 0;
 	        }else{

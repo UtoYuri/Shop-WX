@@ -136,7 +136,7 @@ var getGoodsList = function (page, limit, successCb, failedCb) {
 /**
  * 获取商品信息
  */
-var getGoods = function (unionid, goods_id, successCb, failedCb) {
+var getGoods = function (openid, goods_id, successCb, failedCb) {
   var $that = this;
   if (goods_id <= 0) {
     wx.showToast({
@@ -148,7 +148,7 @@ var getGoods = function (unionid, goods_id, successCb, failedCb) {
   vendor.request({
     url: config.api.getGoods,
     data: {
-      unionid: unionid,
+      openid: openid,
       goods_id: goods_id,
     },
     header: {
@@ -200,7 +200,7 @@ var getGoodsBanner = function (goods_id, successCb, failedCb) {
 /**
  * 获取我的订单
  */
-var getOrderList = function (unionid, page, limit, successCb, failedCb) {
+var getOrderList = function (openid, page, limit, successCb, failedCb) {
   var $that = this;
   if (page <= 0 || limit <= 0) {
     return;
@@ -208,7 +208,7 @@ var getOrderList = function (unionid, page, limit, successCb, failedCb) {
   vendor.request({
     url: config.api.getOrderList,
     data: {
-      unionid: unionid,
+      openid: openid,
       page: page,
       limit: limit,
     },
@@ -259,7 +259,7 @@ var getDeliveryStatus = function (deliveryCompany, deliveryNumber, successCb, fa
 /**
  * 预下订单
  */
-var preOrder = function (unionid, price, description, successCb, failedCb) {
+var preOrder = function (order_id, openid, price, description, successCb, failedCb) {
   var $that = this;
   if (price <= 0) {
     return;
@@ -269,7 +269,8 @@ var preOrder = function (unionid, price, description, successCb, failedCb) {
     data: {
       price: '' + price,
       description: description,
-      unionid: unionid
+      order_id: order_id,
+      openid: openid
     },
     header: {
       'content-type': 'application/x-www-form-urlencoded'
@@ -288,9 +289,9 @@ var preOrder = function (unionid, price, description, successCb, failedCb) {
 /**
  * 创建订单
  */
-var createOrder = function (unionid, order, destination, successCb, failedCb) {
+var createOrder = function (openid, order, destination, successCb, failedCb) {
   var $that = this;
-  if (!unionid || !destination.address || !order.goods_count) {
+  if (!openid || !destination.address || !order.goods_count) {
       wx.showToast({
         title: '订单不完善',
         icon: 'loading',
@@ -300,7 +301,7 @@ var createOrder = function (unionid, order, destination, successCb, failedCb) {
   vendor.request({
     url: config.api.createOrder,
     data: {
-      unionid: unionid,
+      openid: openid,
 
       goods_in_order: order.goods_in_order,
       goods_count: order.goods_count,

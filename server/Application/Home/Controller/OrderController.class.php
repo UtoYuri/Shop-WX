@@ -19,7 +19,7 @@ class OrderController extends Controller {
 	public function create_order(){
 		// 获取请求参数
 		// 订单信息
-		$unionid = I('post.unionid/s', '');
+		$openid = I('post.openid/s', '');
 		$goods_in_order = I('post.goods_in_order/s', '');
 		$goods_count = I('post.goods_count/d', 0);
 		$price_sum = I('post.price_sum/f', 0);
@@ -90,7 +90,7 @@ class OrderController extends Controller {
 			}
 
 	        // 获取用户id
-	        $user_id = $this->get_user_id($unionid);
+	        $user_id = $this->get_user_id($openid);
 	        // 订单编号
 	        $order_stamp = create_order_stamp();
 	        // 关联用户与订单
@@ -114,6 +114,7 @@ class OrderController extends Controller {
         // 回应请求
 		$this->ajaxReturn(array(
 			'status' => true, 
+			'order_id' => $order_id, 
 			'err' => "", 
 		));
 	}
@@ -126,10 +127,11 @@ class OrderController extends Controller {
 		// 获取请求参数
 		$description = I('post.description/s', '订单');
 		$price = I('post.price/s', '100');
-		$unionid = I('post.unionid/s', '');
+		$openid = I('post.openid/s', '');
+		$order_id = I('post.order_id/s', '');
 
 		// 预订单
-		$data = wxPay($unionid, $description, $price, C('HOST').U('Home/Order/pay_callback'));
+		$data = wxPay($openid, $description, $price, C('HOST').U('Home/Order/pay_callback'));
 		$status = true;
 		if ($data['msg'] == 'FAIL'){
 			$status = false;
@@ -141,8 +143,29 @@ class OrderController extends Controller {
 		$sign = $data['sign'];
 		$msg = $data['msg'];
 
-		// 小程序重新生成签名
-		$SIGN = wxPayReSign($timestamp, $noncestr, 'prepay_id='.$prepayid, 'MD5');
+		// 重新生成签名
+		$params = array(
+			'timeStamp'	=>	$timestamp,
+			'nonceStr'	=>	$noncestr,
+			'package'		=>	'prepay_id='.$prepayid,
+			'signType'		=>	'MD5'
+		);
+		$SIGN = wxPayReSign($params);
+
+		// 更新订单prepay_id(方便推送消息)
+		try {
+	        // 创建订单模型
+	        $order_model = D('Order');
+	        // 获取订单基本信息
+	        $result = $order_model->set_prepayid_2_order($order_id, $prepayid);
+	        if (!$result){
+	        	$status = false;
+	        	$err = "更新订单prepay_id失败";
+	        }
+		} catch (Exception $e) {
+	        $status = false;
+	        $err = "更新订单prepay_id失败[".$e."]";
+		}
 
 		// 回应请求
 		$this->ajaxReturn(array(
@@ -153,6 +176,7 @@ class OrderController extends Controller {
 			'timeStamp' => $timestamp, 
 			'sign' => $SIGN, 
 			'msg' => $msg, 
+			'err' => $err, 
 		));
 	}
 
@@ -160,7 +184,63 @@ class OrderController extends Controller {
 	 * 付款成功回调
 	*/
 	public function pay_callback(){
+		wxPayNotify(function($notifyData){
+			// 验证签名
+			$sign = $notifyData['sign'];	// 签名
+			unset($notifyData['sign']);
+			if ($sign != wxPayReSign($notifyData)){
+				return;
+			}
 
+			$result_code = $notifyData['result_code'];	// 支付成功标志 SUCCESS/FAIL
+			$appid = $notifyData['appid'];
+			$err_code = $notifyData['err_code'];	// 错误返回信息描述
+			$err_code_des = $notifyData['err_code_des'];	// 错误返回信息描述
+			$openid = $notifyData['openid'];	// 用户openid
+			$is_subscribe = $notifyData['is_subscribe'];	// 知否订阅公众号
+			$total_fee = $notifyData['total_fee'];	// 订单总额
+			$out_trade_no = $notifyData['out_trade_no'];	// 交易订单号 20180101...
+			$time_end = $notifyData['time_end'];	// 完成时间
+			$trade_type = $notifyData['trade_type'];	// 交易类型 JSAPI
+
+
+			// 检查支付结果
+			if ($result_code == 'FAIL'){
+				return;
+			}
+
+			// 检查对应订单状态
+			try {
+		        // 创建订单模型
+		        $order_model = D('Order');
+		        // 获取订单基本信息
+		        $order = $order_model->get_order($out_trade_no);
+			} catch (Exception $e) {
+				return;
+			}
+	        // 未知订单
+	        if (count($order) == 0){
+	        	return;
+	        }
+
+	        // 已处理订单
+	        $order = $order[0];
+	        if ($order['pay_status'] == 1){
+	        	return;
+	        }
+
+        	$pay_status = 1;
+			// 校验订单金额与收到的金额
+	        if ($order['pay_sum'] * 100 != $total_fee){
+	        	// 金额不匹配
+	        	$pay_status = -1;
+	        }
+	        // 更新订单状态
+	        $result = $order_model->update_pay_status($order['id'], $pay_status, $trade_type);
+
+		}, function(){
+			// 接收到通知但校验失败 如签名失败、参数格式校验错误
+		});
 	}
 
 	/**
@@ -169,14 +249,14 @@ class OrderController extends Controller {
 	*/
 	public function order_list(){
 		// 获取请求参数
-		$unionid = I('post.unionid/s', '');
+		$openid = I('post.openid/s', '');
 		$page = I('post.page/d', 1);
 		$limit = I('post.limit/d', 10);
 
 
 		try {
 	        // 获取用户id
-	        $user_id = $this->get_user_id($unionid);
+	        $user_id = $this->get_user_id($openid);
 	        // 创建订单模型
 	        $order_model = D('Order');
 	        // 获取订单基本信息
@@ -237,15 +317,15 @@ class OrderController extends Controller {
 
 
 	/** 
-	 * 根据unionid获取用户id
-	 * @param string $unionid 用户微信unionid
+	 * 根据openid获取用户id
+	 * @param string $openid openid
 	 * @return int user_id 
 	 */  
-	private function get_user_id($unionid){
+	private function get_user_id($openid){
         // 创建用户模型
         $user_model = D('User');
         // 获取用户id
-        $user = $user_model->get_user_id($unionid);
+        $user = $user_model->get_user_id($openid);
         if (count($user) == 0){
 	        // 回应请求
 			$this->ajaxReturn(array(

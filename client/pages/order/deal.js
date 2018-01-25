@@ -171,58 +171,57 @@ Page({
       });
       return;
     }
-    wx.showToast({
-      title: '支付功能申请中',
-      icon: 'loading'
-    });
-    // // 创建订单 
-    // var goods_in_order = [];
-    // for (var i = 0; i < cart.length; ++i) {
-    //   goods_in_order.push('' + cart[i].goods_id + ':' + cart[i].cart_num);
-    // }
-    // goods_in_order = goods_in_order.join(',')
-    // var order = {
-    //   goods_in_order: goods_in_order,
-    //   goods_count: $that.data.total_goods,
-    //   price_sum: $that.data.total_price,
-    //   freight_sum: $that.data.total_freight,
-    //   remark: $that.data.remark
-    // };
-    // // unionid获取不到 暂用openid
-    // common.createOrder(uniqueID.openid, order, $that.data.destination, function (data) {
-    //   console.log('创建订单', data);
-    //   // 预订单
-    //   common.preOrder(uniqueID.openid, 1, '葫芦娃订单', function(data){
-    //     console.log('微信预订单', data);
-    //     // 调用微信支付接口
-    //     wx.requestPayment({
-    //       timeStamp: '' + data.timeStamp,
-    //       nonceStr: data.nonceStr,
-    //       package: 'prepay_id=' + data.prepayId,
-    //       signType: 'MD5',
-    //       paySign: data.sign,
-    //       'success': function (res) {
-    //         console.log('微信支付', res);
-    //         // 成功则清空购物车并跳转到我的订单列表
-    //         common.setStorage('cart', null, true);
-    //         wx.redirectTo({
-    //           url: '/pages/order/list?icon=success&toast=下单成功',
-    //         });
-    //       },
-    //       'fail': function (res) {
-    //         console.log('微信支付', res);
-    //         wx.showToast({
-    //           title: '支付失败',
-    //           icon: 'loading'
-    //         });
-    //       }
-    //     });
-    //   }, function (error) {
-    //     console.log('微信预订单', error);
-    //   });
-    // }, function(error){
-    //   console.log('创建订单', error);
+    // wx.showToast({
+    //   title: '支付功能申请中',
+    //   icon: 'loading'
     // });
+    // 创建订单 
+    var goods_in_order = [];
+    for (var i = 0; i < cart.length; ++i) {
+      goods_in_order.push('' + cart[i].goods_id + ':' + cart[i].cart_num);
+    }
+    goods_in_order = goods_in_order.join(',')
+    var order = {
+      goods_in_order: goods_in_order,
+      goods_count: $that.data.total_goods,
+      price_sum: $that.data.total_price,
+      freight_sum: $that.data.total_freight,
+      remark: $that.data.remark
+    };
+    common.createOrder(uniqueID.openid, order, $that.data.destination, function (data) {
+      console.log('创建订单', data);
+      // 预订单
+      common.preOrder(data.order_id, uniqueID.openid, 1, '葫芦娃订单', function(data){
+        console.log('微信预订单', data);
+        // 调用微信支付接口
+        wx.requestPayment({
+          timeStamp: '' + data.timeStamp,
+          nonceStr: data.nonceStr,
+          package: 'prepay_id=' + data.prepayId,
+          signType: 'MD5',
+          paySign: data.sign,
+          'success': function (res) {
+            console.log('微信支付', res);
+            // 成功则清空购物车并跳转到我的订单列表
+            common.setStorage('cart', null, true);
+            wx.redirectTo({
+              url: '/pages/order/list?icon=success&toast=下单成功',
+            });
+          },
+          'fail': function (res) {
+            console.log('微信支付', res);
+            wx.showToast({
+              title: '支付失败',
+              icon: 'loading'
+            });
+          }
+        });
+      }, function (error) {
+        console.log('微信预订单', error);
+      });
+    }, function(error){
+      console.log('创建订单', error);
+    });
   },
 
 })

@@ -9,7 +9,7 @@ Page({
    */
   data: {
     shopName: '',
-    unionid: null,
+    openid: null,
     page: 1,
     limit: 10,
     isLoading: false,
@@ -40,7 +40,7 @@ Page({
       return;
     }
     this.setData({
-      unionid: uniqueID.openid  // 暂用openid自慰
+      openid: uniqueID.openid 
     });
     this.getOrderList(true);
     // 腾讯分析
@@ -144,7 +144,7 @@ Page({
     // 未登录情形
     var uniqueID = common.getStorage('uniqueID', true);
     // 开始加载 
-    common.getOrderList($that.data.unionid, page, limit, function (data) {
+    common.getOrderList($that.data.openid, page, limit, function (data) {
       console.log("我的订单", data);
       // 加载成功
       $that.setData({

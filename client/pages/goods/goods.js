@@ -130,8 +130,6 @@ Page({
     var banners = [];
     // 获取商品信息
     var uniqueID = common.getStorage('uniqueID', true);
-    // 暂用openid
-    // common.getGoods(uniqueID.unionid || '', goods_id, function (data) {
     common.getGoods(uniqueID.openid || '', goods_id, function (data) {
       // 获取商品信息成功
       console.log("商品信息", data);

@@ -62,6 +62,30 @@ function wxPay($openid, $desc, $price, $callbackUrl){
 	return $data;
 }
 
+
+/**
+ *	微信支付结果处理
+ * @param string $openid 用户openid
+ * @param string $desc 订单描述
+ * @param string $price 订单价格
+ * @param string $callbackUrl 支付结果回调网址
+ * @return string 
+*/
+function wxPayNotify($successCb, $failCb){
+	include_once 'WechatAppPay.class.php';
+
+	// 微信支付结果处理
+	$wechatAppPay = new wechatAppPay();
+
+	$notifyData = $wechatAppPay->getNotifyData();
+	if (!$notifyData){
+		$failCb();
+	}else{
+		$successCb($notifyData);
+	}
+	$wechatAppPay->replyNotify();
+}
+
 /**
  *	微信小程序支付二次签名
  * @param string $timeStamp 时间戳
@@ -70,32 +94,59 @@ function wxPay($openid, $desc, $price, $callbackUrl){
  * @param string $signType 加密类型
  * @return string 
 */
-function wxPayReSign($timeStamp, $nonceStr, $package, $signType){
-	$APP_ID = C('WX_MINIAPP_ID');
-	$MCH_ID = C('WX_MINIAPP_MCHID');
-	$API_KEY = C('WX_MINIAPP_APIKEY');
-
-	//填写配置参数
-	$options = array(
-		'appid' 	=> 	$APP_ID,		//填写微信分配的公众开放账号ID
-		'mch_id'	=>	$MCH_ID,		//填写微信支付分配的商户号
-		'notify_url'=>	$callbackUrl,		//填写微信支付结果回调地址
-		'key'		=>	$API_KEY	//填写  商户支付密钥Key。审核通过后，在微信发送的邮件中查看
-	);
-	$params = array(
-		'appId' 	=> 	$APP_ID,
-		'timeStamp'	=>	$timeStamp,
-		'nonceStr'	=>	$nonceStr,
-		'package'		=>	$package,
-		'signType'		=>	$signType
-	);
+function wxPayReSign($params){
+	$params['appId'] = C('WX_MINIAPP_ID');
 	//统一下单方法
-	$wechatAppPay = new wechatAppPay($options);
-	// print_r($params);
+	$wechatAppPay = new wechatAppPay();
 	$sign = $wechatAppPay->MakeSign($params);
-	// print_r($sign);
 	return $sign;
 }
+
+/**
+ * 获取微信AccessToken
+ * @return  string AccessToken
+ */
+function getAccessToken(){
+	$data = array(
+        'grant_type' => 'client_credential',
+        'appid' => C('WX_MINIAPP_ID'),
+        'secret' => C('WX_MINIAPP_SECRET'),
+    );
+
+	$json = curlGet('https://api.weixin.qq.com/cgi-bin/token', $data);
+
+	$output = json_decode($json, true);	
+	
+	//根据公司业务处理返回的信息......
+	return $output['access_token'];
+}
+
+/**
+ *	微信小程序推送模板信息
+ * @param string $openid 接受者openid
+ * @param string $template_id 模板id
+ * @param string $page 点击跳转页面
+ * @param string $form_id formId / prepay_id
+ * @param array $data 模板内容
+ * @return int errcode 错误码 
+*/
+function wxSendMessage($openid, $template_id, $page, $form_id, $data){
+	$data = array(
+		"touser"	=> $openid,
+		"template_id"	=> $template_id,
+		"page"	=> $page,
+		"form_id"	=> $form_id,
+		"data"	=> $data,
+	);
+	$jsonData = json_encode($data);
+	$json = curlPost("https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=".getAccessToken(), $jsonData);
+
+	$output = json_decode($json, true);	
+	
+	//根据公司业务处理返回的信息......
+	return $output['errcode'];
+}
+
 
 /**
  *	微信登录

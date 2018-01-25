@@ -13,8 +13,7 @@ class UserModel extends Model {
      */  
     public function login($uinfo){
         // 查找用户
-        // $user = $this->get_user_id($uinfo['unionid']);
-        $user = $this->get_user_id($uinfo['openid']); // 把openid当做unionid自慰
+        $user = $this->get_user_id($uinfo['openid']);
         if (count($user) == 0){
             // 创建
             return $this->create_user($uinfo);
@@ -25,14 +24,14 @@ class UserModel extends Model {
     }
 
     /** 
-     * 根据unionid查找用户
+     * 根据openid查找用户
      * @param array  $uinfo 用户信息
      * @return array 用户信息
      */  
-    public function get_user_id($unionid){
+    public function get_user_id($openid){
         // 查询数据
         $result = $this->where(array(
-            'union_id' => $unionid, 
+            'openid' => $openid, 
         ))->field('id')->select();
         return $result;
     }
@@ -44,8 +43,7 @@ class UserModel extends Model {
 	 */  
     private function create_user($uinfo){
     	$data = array (
-            // 'unionid' => $uinfo['unionid'],
-            'union_id' => $uinfo['openid'],  // 把openid当做unionid自慰
+            'openid' => $uinfo['openid'], 
             'nickname' => $uinfo['nickname'],
             'gender' => $uinfo['gender'],
             'city' => $uinfo['city'],
@@ -64,8 +62,7 @@ class UserModel extends Model {
      */  
     private function update_user($uid, $uinfo){
         $data = array (
-            // 'unionid' => $uinfo['unionid'],
-            'union_id' => $uinfo['openid'],  // 把openid当做unionid自慰
+            'openid' => $uinfo['openid'],
             'nickname' => $uinfo['nickname'],
             'gender' => $uinfo['gender'],
             'city' => $uinfo['city'],
