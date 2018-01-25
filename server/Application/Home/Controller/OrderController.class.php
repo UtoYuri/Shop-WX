@@ -231,12 +231,32 @@ class OrderController extends Controller {
 
         	$pay_status = 1;
 			// 校验订单金额与收到的金额
-	        if ($order['pay_sum'] * 100 != $total_fee){
+	        if (($order['price_sum'] + $order['freight_sum']) * 100 != $total_fee){
 	        	// 金额不匹配
 	        	$pay_status = -1;
 	        }
 	        // 更新订单状态
-	        $result = $order_model->update_pay_status($order['id'], $pay_status, $trade_type);
+	        $result = $order_model->update_pay_status($order['id'], $pay_status, (float)($total_fee / 100.0), $trade_type);
+
+	        $data = array(
+	        	"keyword1"	=> array(
+	        		"value"	=> $out_trade_no,
+	        	),
+	        	"keyword2"	=> array(
+	        		"value"	=> (float)($total_fee / 100.0),
+	        	),
+	        	"keyword3"	=> array(
+	        		"value"	=> $order['destination'],
+	        	),
+	        	"keyword4"	=> array(
+	        		"value"	=> date("Y-m-d H:i:s"),
+	        	),
+	        	"keyword5"	=> array(
+	        		"value"	=> '13888888888',
+	        	),
+	        );
+	        // 推送成功下单消息
+	        wxSendMessage($openid, C('WX_MSG_TPL_TRADE'), '/pages/order/list', $order['prepay_id'], $data);
 
 		}, function(){
 			// 接收到通知但校验失败 如签名失败、参数格式校验错误

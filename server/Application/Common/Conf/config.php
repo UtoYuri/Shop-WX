@@ -11,6 +11,10 @@ return array(
     'WX_MINIAPP_MCHID'          =>  'your mchid',     // 商户号
     'WX_MINIAPP_APIKEY'         =>  'your key',     // 支付秘钥
 	
+    /* 模板信息 */
+    'WX_MSG_TPL_TRADE'             =>  'JYEaPrd6QhZujfZVTfis63KvfMn5U3hVD5jKA8Wpn1g',     // 购买成功
+    'WX_MSG_TPL_DELIVERY'             =>  'JYEaPrd6QhZujfZVTfis63KvfMn5U3hVD5jKA8Wpn1g',     // 订单发货
+	
     /* 数据库设置 */
     'DB_TYPE'               =>  'mysql',     // 数据库类型
     'DB_HOST'               =>  'localhost', // 服务器地址

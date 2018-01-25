@@ -91,13 +91,14 @@ class OrderModel extends Model {
      * @param string $pay_type 支付类型
      * @return boolean 操作结果
      */  
-    public function update_pay_status($id, $pay_status, $pay_type){
+    public function update_pay_status($id, $pay_status, $total_fee, $pay_type){
         $condition = array(
             'id' => $id,
         );
         $data = array(
             'pay_status' => $pay_status,
             'pay_type' => $pay_type,
+            'pay_sum' => $total_fee,
         );
         // 获取订单内容
         $result = $this->table('t_order')->where($condition)->save($data);
