@@ -17,7 +17,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var cart = common.getStorage('cart', true);
+    var cart = common.getStorage('cart', true) || [];
     var total_cart_num = 0;
     for (var i = 0; i < cart.length; ++i) {
       total_cart_num += cart[i].num;

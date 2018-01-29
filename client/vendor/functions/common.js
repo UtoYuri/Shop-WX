@@ -259,7 +259,7 @@ var getDeliveryStatus = function (deliveryCompany, deliveryNumber, successCb, fa
 /**
  * 预下订单
  */
-var preOrder = function (order_id, openid, price, description, successCb, failedCb) {
+var preOrder = function (order_id, openid, price, description, order_stamp, successCb, failedCb) {
   var $that = this;
   if (price <= 0) {
     return;
@@ -270,7 +270,8 @@ var preOrder = function (order_id, openid, price, description, successCb, failed
       price: '' + price,
       description: description,
       order_id: order_id,
-      openid: openid
+      openid: openid,
+      out_trade_no: order_stamp
     },
     header: {
       'content-type': 'application/x-www-form-urlencoded'

@@ -88,6 +88,7 @@ class OrderModel extends Model {
      * 更新订单支付状态
      * @param string $id 订单id
      * @param string $pay_status 支付状态
+     * @param float $total_fee 总费用
      * @param string $pay_type 支付类型
      * @return boolean 操作结果
      */  
@@ -97,8 +98,8 @@ class OrderModel extends Model {
         );
         $data = array(
             'pay_status' => $pay_status,
-            'pay_type' => $pay_type,
             'pay_sum' => $total_fee,
+            'pay_type' => $pay_type,
         );
         // 获取订单内容
         $result = $this->table('t_order')->where($condition)->save($data);

@@ -115,6 +115,7 @@ class OrderController extends Controller {
 		$this->ajaxReturn(array(
 			'status' => true, 
 			'order_id' => $order_id, 
+			'order_stamp' => $order_stamp, 
 			'err' => "", 
 		));
 	}
@@ -129,9 +130,10 @@ class OrderController extends Controller {
 		$price = I('post.price/s', '100');
 		$openid = I('post.openid/s', '');
 		$order_id = I('post.order_id/s', '');
+		$out_trade_no = I('post.out_trade_no/s', '');
 
 		// 预订单
-		$data = wxPay($openid, $description, $price, C('HOST').U('Home/Order/pay_callback'));
+		$data = wxPay($openid, $description, $price, $out_trade_no, C('HOST').U('Home/Order/pay_callback'));
 		$status = true;
 		if ($data['msg'] == 'FAIL'){
 			$status = false;
@@ -150,7 +152,7 @@ class OrderController extends Controller {
 			'package'		=>	'prepay_id='.$prepayid,
 			'signType'		=>	'MD5'
 		);
-		$SIGN = wxPayReSign($params);
+		$SIGN = wxPayReSign($params, true);
 
 		// 更新订单prepay_id(方便推送消息)
 		try {
@@ -185,10 +187,11 @@ class OrderController extends Controller {
 	*/
 	public function pay_callback(){
 		wxPayNotify(function($notifyData){
+		    $order_model = D('Order');
 			// 验证签名
 			$sign = $notifyData['sign'];	// 签名
 			unset($notifyData['sign']);
-			if ($sign != wxPayReSign($notifyData)){
+			if ($sign != wxPayReSign($notifyData, false)){
 				return;
 			}
 
@@ -202,7 +205,6 @@ class OrderController extends Controller {
 			$out_trade_no = $notifyData['out_trade_no'];	// 交易订单号 20180101...
 			$time_end = $notifyData['time_end'];	// 完成时间
 			$trade_type = $notifyData['trade_type'];	// 交易类型 JSAPI
-
 
 			// 检查支付结果
 			if ($result_code == 'FAIL'){
@@ -236,14 +238,15 @@ class OrderController extends Controller {
 	        	$pay_status = -1;
 	        }
 	        // 更新订单状态
-	        $result = $order_model->update_pay_status($order['id'], $pay_status, (float)($total_fee / 100.0), $trade_type);
+	        $real_price = (float)($total_fee / 100.0);
+	        $result = $order_model->update_pay_status($order['id'], $pay_status, $real_price, $trade_type);
 
 	        $data = array(
 	        	"keyword1"	=> array(
 	        		"value"	=> $out_trade_no,
 	        	),
 	        	"keyword2"	=> array(
-	        		"value"	=> (float)($total_fee / 100.0),
+	        		"value"	=> "".$real_price.' 元',
 	        	),
 	        	"keyword3"	=> array(
 	        		"value"	=> $order['destination'],
@@ -257,6 +260,9 @@ class OrderController extends Controller {
 	        );
 	        // 推送成功下单消息
 	        wxSendMessage($openid, C('WX_MSG_TPL_TRADE'), '/pages/order/list', $order['prepay_id'], $data);
+
+	        // 发送短息提醒商家
+	        smsSendMessage(C('SMS_MSG_TIPS'), C('HOST_PHONE'), [$out_trade_no]);
 
 		}, function(){
 			// 接收到通知但校验失败 如签名失败、参数格式校验错误

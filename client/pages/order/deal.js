@@ -29,7 +29,7 @@ Page({
       shopName: shop_meta.name || this.data.shopName
     });
     // 获取购物车内容
-    var cart = common.getStorage('cart', true);
+    var cart = common.getStorage('cart', true) || [];
     var goods_ids = [];
     for (var i = 0; i < cart.length; ++i) {
       goods_ids.push(cart[i].id);
@@ -171,10 +171,6 @@ Page({
       });
       return;
     }
-    // wx.showToast({
-    //   title: '支付功能申请中',
-    //   icon: 'loading'
-    // });
     // 创建订单 
     var goods_in_order = [];
     for (var i = 0; i < cart.length; ++i) {
@@ -190,8 +186,9 @@ Page({
     };
     common.createOrder(uniqueID.openid, order, $that.data.destination, function (data) {
       console.log('创建订单', data);
+      var total_price = parseFloat(order['price_sum']) + parseFloat(order['freight_sum']);
       // 预订单
-      common.preOrder(data.order_id, uniqueID.openid, 1, '葫芦娃订单', function(data){
+      common.preOrder(data.order_id, uniqueID.openid, total_price*100, '' + order['goods_count'] + ' 件桃姐礼盒商品', data.order_stamp, function(data){
         console.log('微信预订单', data);
         // 调用微信支付接口
         wx.requestPayment({
@@ -203,7 +200,7 @@ Page({
           'success': function (res) {
             console.log('微信支付', res);
             // 成功则清空购物车并跳转到我的订单列表
-            common.setStorage('cart', null, true);
+            common.setStorage('cart', [], true);
             wx.redirectTo({
               url: '/pages/order/list?icon=success&toast=下单成功',
             });
@@ -218,6 +215,10 @@ Page({
         });
       }, function (error) {
         console.log('微信预订单', error);
+        wx.showToast({
+          title: error,
+          icon: 'loading'
+        });
       });
     }, function(error){
       console.log('创建订单', error);

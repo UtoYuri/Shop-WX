@@ -39,11 +39,17 @@ Page({
    */
   onShow: function () {
     var $that = this;
-    var cart = common.getStorage('cart', true);
+    var cart = common.getStorage('cart', true) || [];
     var goods_ids = [];
     for (var i = 0; i < cart.length; ++i){
       goods_ids.push(cart[i].id);
     }
+    $that.setData({
+      cart: [],
+      total_price: 0,
+      total_goods: 0,
+      total_freight: 0
+    });
     // 批量获取商品信息
     common.getGoodsListInCart(goods_ids.join(','), function(data){
       console.log('购物车商品列表', data);

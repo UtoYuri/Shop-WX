@@ -111,10 +111,41 @@ Page({
    * 用户点击支付
    */
   pay: function (e) {
+    var $that = this;
     var order_id = e.currentTarget.dataset.orderid;
-    wx.showToast({
-      title: '开发中',
-      icon: 'loading'
+    var total_price = e.currentTarget.dataset.totalprice;
+    var order_stamp = e.currentTarget.dataset.orderstamp;
+    var goods_count = e.currentTarget.dataset.goodscount;
+    var uniqueID = common.getStorage('uniqueID', true);
+    
+    // 预订单
+    common.preOrder(order_id, uniqueID.openid, total_price * 100, '' + goods_count + ' 件桃姐礼盒商品', order_stamp, function (data) {
+      console.log('微信预订单', data);
+      // 调用微信支付接口
+      wx.requestPayment({
+        timeStamp: '' + data.timeStamp,
+        nonceStr: data.nonceStr,
+        package: 'prepay_id=' + data.prepayId,
+        signType: 'MD5',
+        paySign: data.sign,
+        'success': function (res) {
+          console.log('微信支付', res);
+          $that.getOrderList(true);
+        },
+        'fail': function (res) {
+          console.log('微信支付', res);
+          wx.showToast({
+            title: '支付失败',
+            icon: 'loading'
+          });
+        }
+      });
+    }, function (error) {
+      console.log('微信预订单', error);
+      wx.showToast({
+        title: error,
+        icon: 'loading'
+      });
     });
   },
 

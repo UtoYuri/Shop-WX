@@ -14,6 +14,15 @@ return array(
     /* 模板信息 */
     'WX_MSG_TPL_TRADE'             =>  'JYEaPrd6QhZujfZVTfis63KvfMn5U3hVD5jKA8Wpn1g',     // 购买成功
     'WX_MSG_TPL_DELIVERY'             =>  'JYEaPrd6QhZujfZVTfis63KvfMn5U3hVD5jKA8Wpn1g',     // 订单发货
+
+    /* SMS信息 */
+    'SMS_APPID'             =>  'your qcloud sms appid',    
+    'SMS_APPKEY'             =>  'your qcloud sms appkey',    
+    'SMS_SIGN'             =>  'your message sign',    
+    'SMS_MSG_TIPS'             =>  'template id of message to notice host',     
+
+    /* 商店信息 */ 
+    'HOST_PHONE'             =>  'host phone number which receive tips',    
 	
     /* 数据库设置 */
     'DB_TYPE'               =>  'mysql',     // 数据库类型

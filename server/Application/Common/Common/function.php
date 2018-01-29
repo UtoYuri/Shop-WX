@@ -27,10 +27,11 @@ function checkPhone($phone){
  * @param string $openid 用户openid
  * @param string $desc 订单描述
  * @param string $price 订单价格
+ * @param string $out_trade_no 订单编号
  * @param string $callbackUrl 支付结果回调网址
  * @return string 
 */
-function wxPay($openid, $desc, $price, $callbackUrl){
+function wxPay($openid, $desc, $price, $out_trade_no, $callbackUrl){
 	include_once 'WechatAppPay.class.php';
 
 	$APP_ID = C('WX_MINIAPP_ID');
@@ -49,7 +50,7 @@ function wxPay($openid, $desc, $price, $callbackUrl){
 	//统一下单方法
 	$wechatAppPay = new wechatAppPay($options);
 	$params['body'] = $desc;						//商品描述
-	$params['out_trade_no'] = create_order_stamp();	//自定义的订单号
+	$params['out_trade_no'] = $out_trade_no;	//自定义的订单号
 	$params['total_fee'] = $price;					//订单金额 只能为整数 单位为分
 	$params['trade_type'] = $TRADE_TYPE;			//交易类型 JSAPI | NATIVE | APP | WAP 
 	$result = $wechatAppPay->unifiedOrder( $params );
@@ -94,10 +95,15 @@ function wxPayNotify($successCb, $failCb){
  * @param string $signType 加密类型
  * @return string 
 */
-function wxPayReSign($params){
-	$params['appId'] = C('WX_MINIAPP_ID');
+function wxPayReSign($params, $need_appid){
+	if ($need_appid){
+		$params['appId'] = C('WX_MINIAPP_ID');
+	}
+	$options = array(
+		'key'	=>	C('WX_MINIAPP_APIKEY')
+	);
 	//统一下单方法
-	$wechatAppPay = new wechatAppPay();
+	$wechatAppPay = new wechatAppPay($options);
 	$sign = $wechatAppPay->MakeSign($params);
 	return $sign;
 }
@@ -207,6 +213,29 @@ function getOrderTraces($company, $number){
 	
 	//根据公司业务处理返回的信息......
 	return $result;
+}
+
+/**
+ * 查询订单物流轨迹
+ * @param  string $templateId 短信模板id
+ * @param  string $phone 接收方手机
+ * @param  string $params 快递单号
+ * @return  string 物流轨迹json
+ */
+function smsSendMessage($templateId, $phone, $params){
+	include_once 'SmsSingleSender.php';
+	// 指定模板ID单发短信
+	try {
+	    $sender = new SmsSingleSender(C('SMS_APPID'), C('SMS_APPKEY'));
+	    $result = $sender->sendWithParam("86", $phone, $templateId,
+	        $params, C('SMS_SIGN'), "", "");  // 签名参数未提供或者为空时，会使用默认签名发送短信
+	    $rsp = json_decode($result);
+	    echo $result;
+	    return true;
+	} catch(Exception $e) {
+	    // echo var_dump($e);
+	    return false;
+	}
 }
 
 /**

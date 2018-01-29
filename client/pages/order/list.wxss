@@ -75,6 +75,7 @@ view{
   color: #FF8C00;
 }
 .order .option{
+  min-height: 40rpx;
   margin-top: 10rpx;
   text-align: right;
 }
@@ -91,6 +92,5 @@ view{
 }
 .option .order-date{
   float: left;
-  margin-top: 20rpx;
   color: #555;
 }
